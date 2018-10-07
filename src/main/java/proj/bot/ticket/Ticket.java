@@ -49,7 +49,7 @@ public class Ticket {
     
     public void enableGUI() {
         instance = this;
-        logger = new LogWindow("PandaWorkoutBot", 800, 400);
+        logger = new LogWindow("TicketBot", 800, 400);
         logger.addLogListener(new ListenerClass());
         init();
     }
@@ -60,7 +60,7 @@ public class Ticket {
         
         try { filePath = new File(Ticket.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().toString()).getParent(); } catch(Exception e) {e.printStackTrace(); System.out.println("Error getting file path, shutting down."); return;}
         
-        TicketConfig config = new TicketConfig(filePath, "SteamyConfig.yml");
+        TicketConfig config = new TicketConfig(filePath, "TicketConfig.yml");
         prefix = config.getPrefixIdentifier();
         
         try {
@@ -76,7 +76,7 @@ public class Ticket {
         getInstance().jda.addEventListener(new TicketListener());
         
         getInstance().jda.getGuilds().stream().forEach(guild -> {
-            SupportType.getSupportRole(guild);
+            guild.getController().addSingleRoleToMember(guild.getMember(getInstance().getJda().getSelfUser()), SupportType.getSupportRole(guild)).queue();
             ServerConfig sconfig = new ServerConfig(guild.getId());
             for(SupportType type : SupportType.values()) {
                 if(sconfig.getSupportType(type)) {

@@ -5,13 +5,25 @@ import java.util.List;
 import lombok.Getter;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Role;
+import proj.bot.ticket.supports.types.Ban;
 import proj.bot.ticket.supports.types.Bug;
+import proj.bot.ticket.supports.types.Question;
+import proj.bot.ticket.supports.types.Rank;
+import proj.bot.ticket.supports.types.Rolee;
+import proj.bot.ticket.supports.types.Suggest;
+import proj.bot.ticket.supports.types.Support;
 
 public enum SupportType {
 
     //Support types - Ban appeals, suggestions, bugs, questions, role request, support
-    
+
+    BAN("ban", new Ban()),
     BUG("bug", new Bug()),
+    QUESTION("question", new Question()),
+    RANK("rank", new Rank()),
+    ROLE("role", new Rolee()),
+    SUGGEST("suggest", new Suggest()),
+    SUPPORT("support", new Support()),
     ;
     
     @Getter
@@ -38,7 +50,8 @@ public enum SupportType {
         List<Role> roles = guild.getRolesByName("Support Specialist", false);
         if (!roles.isEmpty())
             return roles.get(0);
-        return null;
+        else
+            return guild.getController().createRole().setName("Support Specialist").complete();
     }
     
     public static SupportType getSupportType(Guild guild, String channelName) {

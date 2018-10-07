@@ -8,6 +8,8 @@ import net.dv8tion.jda.core.entities.User;
 
 public interface Command {
     
+    public boolean permissible();
+    
     public boolean useRole();
     
     public String getRole();

@@ -15,6 +15,11 @@ import proj.bot.ticket.supports.SupportType;
 import proj.bot.ticket.utils.Messenger;
 
 public class Enable implements Command {
+    
+    @Override
+    public boolean permissible() {
+        return true;
+    }
 
     @Override
     public boolean useRole() {
@@ -57,7 +62,7 @@ public class Enable implements Command {
         EmbedBuilder embed = Messenger.getEmbedFrame();
         embed.setDescription(Emoji.GreenCheck.getValue() + " **Support type enabled.**");
         embed.setColor(Color.GREEN);
-        Messenger.sendEmbed(user, embed.build());
+        Messenger.sendEmbed(ch, embed.build());
         
         
     }

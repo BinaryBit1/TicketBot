@@ -8,6 +8,11 @@ import net.dv8tion.jda.core.entities.User;
 import proj.bot.ticket.command.Command;
 
 public class NA implements Command {
+    
+    @Override
+    public boolean permissible() {
+        return false;
+    }
 
     @Override
     public boolean useRole() {
@@ -21,7 +26,7 @@ public class NA implements Command {
 
     @Override
     public Permission getPermission() {
-        return Permission.MESSAGE_WRITE;
+        return null;
     }
 
     @Override

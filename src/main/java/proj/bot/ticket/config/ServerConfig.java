@@ -43,25 +43,31 @@ public class ServerConfig {
     }
     
     public void setSupportType(SupportType supportType, boolean enabled) {
-        config.get(supportType.getSupportType().getConfigPath(), enabled);
-    }
-    
-    
-    public List<String> getBlacklist(){
-        List<String> users = new ArrayList<>();
-        return config.getList("Blacklisted Users", users, "");
+        config.set(supportType.getSupportType().getConfigPath(), enabled);
     }
     
     public void addUserToBlacklist(String userid) {
         List<String> users = getBlacklist();
+        users.remove(userid);
         users.add(userid);
         config.set("Blacklisted Users", users);
     }
     
     public void removeUserFromBlacklist(String userid) {
         List<String> users = getBlacklist();
-        users.add(userid);
+            users.remove(userid);
         config.set("Blacklisted Users", users);
+    }
+    
+    
+    public boolean blacklistContains(String userid){
+        List<String> users = getBlacklist();
+        return users.contains(userid);
+    }
+    
+    
+    private List<String> getBlacklist(){
+        return config.getList("Blacklisted Users", new ArrayList<>(), " ");
     }
     
     

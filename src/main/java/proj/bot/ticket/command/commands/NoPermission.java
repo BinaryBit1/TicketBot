@@ -13,6 +13,11 @@ import proj.bot.ticket.command.Command;
 import proj.bot.ticket.utils.Messenger;
 
 public class NoPermission implements Command {
+    
+    @Override
+    public boolean permissible() {
+        return false;
+    }
 
     @Override
     public boolean useRole() {
@@ -26,7 +31,7 @@ public class NoPermission implements Command {
 
     @Override
     public Permission getPermission() {
-        return Permission.MESSAGE_WRITE;
+        return null;
     }
 
     @Override

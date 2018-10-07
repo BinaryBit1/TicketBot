@@ -11,6 +11,7 @@ import proj.bot.ticket.command.commands.Close;
 import proj.bot.ticket.command.commands.Disable;
 import proj.bot.ticket.command.commands.Enable;
 import proj.bot.ticket.command.commands.Help;
+import proj.bot.ticket.command.commands.Leave;
 import proj.bot.ticket.command.commands.NA;
 import proj.bot.ticket.command.commands.NoPermission;
 import proj.bot.ticket.command.commands.Remove;
@@ -24,6 +25,7 @@ public enum CommandExecutor {
     DISABLE("DISABLE", new Disable()),
     ENABLE("ENABLE", new Enable()),
     HELP("HELP", new Help()),
+    LEAVE("LEAVE", new Leave()),
     NA("NA", new NA()),
     NP("NP", new NoPermission()),
     REMOVE("REMOVE", new Remove()),
@@ -38,22 +40,27 @@ public enum CommandExecutor {
         this.command = command;
     }
     
-    public static CommandExecutor getCommand(String cmd, Guild guild, User user) {
+    public static CommandExecutor getCommand(String cmd, Guild guild, User user) {        
         for(CommandExecutor ce : CommandExecutor.values()) {
             if(ce.getIdentifier().equalsIgnoreCase(cmd)) {
-               if(ce.getCommandClass().useRole()) {
-                   if(Authenticator.hasRole(guild, ce.getCommandClass().getRole(), user)) {
-                       return ce;
-                   } else {
-                       return NP;
-                   }
-               }else {
-                   if(Authenticator.hasPermission(guild, ce.getCommandClass().getPermission(), user)) {
-                       return ce;
-                   } else {
-                       return NP;
-                   }
-               }
+                
+                if(ce.getCommandClass().permissible()) {
+                    if(ce.getCommandClass().useRole()) {
+                        if(Authenticator.hasRole(guild, ce.getCommandClass().getRole(), user)) {
+                            return ce;
+                        } else {
+                            return NP;
+                        }
+                    }else {
+                        if(Authenticator.hasPermission(guild, ce.getCommandClass().getPermission(), user)) {
+                            return ce;
+                        } else {
+                            return NP;
+                        }
+                    }
+                } else {
+                    return ce;
+                }
             } else if(SupportType.fromString(cmd) != null) {
                 return TICKET_CREATOR;
             }

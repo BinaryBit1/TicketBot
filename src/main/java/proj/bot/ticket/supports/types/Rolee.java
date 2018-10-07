@@ -21,18 +21,18 @@ import proj.bot.ticket.supports.ISupportType;
 import proj.bot.ticket.supports.SupportType;
 import proj.bot.ticket.utils.Messenger;
 
-public class Bug implements ISupportType {
+public class Rolee implements ISupportType {
 
     @Override
     public String getConfigPath() {
-        return "Enable Bug Reports";
+        return "Enable Role Requests";
     }
 
     @Override
     public String getHelpMessage() {
         StringBuilder sb = new StringBuilder();
         
-        sb.append("To report a bug: " + "*\"" + Ticket.getInstance().prefix + "bug\"*");
+        sb.append("To request a role: " + "*\"" + Ticket.getInstance().prefix + "role\"*");
         
         return sb.toString();
     }
@@ -63,7 +63,7 @@ public class Bug implements ISupportType {
 
     @Override
     public String getCategoryName(Guild guild) {
-        return Emoji.Bug.getValue() + " Bug Reports";
+        return Emoji.Scroll.getValue() + " Role Requests";
     }
 
     @Override
@@ -87,7 +87,7 @@ public class Bug implements ISupportType {
                     addUserToTicket((TextChannel) ch, user);
 
                     EmbedBuilder embed = Messenger.getEmbedFrame(ch.getGuild());
-                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \nPlease describe the bug in detail, and where it was found.");
+                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \nPlease describe the purpose of this request.");
                     Messenger.sendEmbed((TextChannel) ch, embed.build());
                 });
         

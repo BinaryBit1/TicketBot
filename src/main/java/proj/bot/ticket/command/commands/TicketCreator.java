@@ -15,6 +15,11 @@ import proj.bot.ticket.supports.SupportType;
 import proj.bot.ticket.utils.Messenger;
 
 public class TicketCreator implements Command {
+    
+    @Override
+    public boolean permissible() {
+        return false;
+    }
 
     @Override
     public boolean useRole() {
@@ -28,7 +33,7 @@ public class TicketCreator implements Command {
 
     @Override
     public Permission getPermission() {
-        return Permission.MESSAGE_WRITE;
+        return null;
     }
 
     @Override
@@ -37,7 +42,7 @@ public class TicketCreator implements Command {
         try { msg.delete().queue(); } catch(Exception e) {}
         
         ServerConfig config = new ServerConfig(guild.getId());
-        if(config.getBlacklist().contains(user.getId())) {
+        if(config.blacklistContains(user.getId())) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You are currently blacklisted from creating tickets.**");
             embed.setColor(Color.RED);

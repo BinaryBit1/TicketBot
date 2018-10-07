@@ -12,11 +12,17 @@ import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import proj.bot.ticket.Ticket;
+import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
 import proj.bot.ticket.supports.SupportType;
 import proj.bot.ticket.utils.Messenger;
 
 public class Add implements Command {
+    
+    @Override
+    public boolean permissible() {
+        return false;
+    }
 
     @Override
     public boolean useRole() {
@@ -30,7 +36,7 @@ public class Add implements Command {
 
     @Override
     public Permission getPermission() {
-        return Permission.MESSAGE_WRITE;
+        return null;
     }
 
     @Override
@@ -53,7 +59,7 @@ public class Add implements Command {
             return;
         }
         
-        if(!type.getSupportType().getOwner((TextChannel) ch).getId().equals(user.getId()) && guild.getMember(user).getRoles().contains(SupportType.getSupportRole(guild))) {
+        if(!type.getSupportType().getOwner((TextChannel) ch).getId().equals(user.getId()) && !guild.getMember(user).getRoles().contains(SupportType.getSupportRole(guild)) && !Authenticator.hasPermission(guild, Permission.ADMINISTRATOR, user)) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You must be the ticket owner, or a support staff, to add members to this ticket.**");
             embed.setColor(Color.RED);

@@ -16,6 +16,11 @@ import proj.bot.ticket.config.ServerConfig;
 import proj.bot.ticket.utils.Messenger;
 
 public class Blacklist implements Command {
+    
+    @Override
+    public boolean permissible() {
+        return true;
+    }
 
     @Override
     public boolean useRole() {
@@ -79,18 +84,17 @@ public class Blacklist implements Command {
         
         ServerConfig config = new ServerConfig(guild.getId());        
         if(add) {
-            config.getBlacklist().remove(taggedUser.getId());
-            config.getBlacklist().add(taggedUser.getId());
+            config.addUserToBlacklist(taggedUser.getId());
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.GreenCheck.getValue() + " **User added to blacklist.**");
             embed.setColor(Color.GREEN);
-            Messenger.sendEmbed(user, embed.build());
+            Messenger.sendEmbed(ch, embed.build());
         } else {
-            config.getBlacklist().remove(taggedUser.getId());
+            config.removeUserFromBlacklist(taggedUser.getId());
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.GreenCheck.getValue() + " **User removed from blacklist.**");
             embed.setColor(Color.GREEN);
-            Messenger.sendEmbed(user, embed.build());
+            Messenger.sendEmbed(ch, embed.build());
         }
         
         

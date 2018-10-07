@@ -8,17 +8,17 @@ import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import proj.bot.ticket.command.Command;
-import proj.bot.ticket.config.ServerConfig;
 import proj.bot.ticket.supports.SupportType;
 import proj.bot.ticket.utils.Messenger;
 
-public class Disable implements Command {
+public class Leave implements Command {
     
     @Override
     public boolean permissible() {
-        return true;
+        return false;
     }
 
     @Override
@@ -33,36 +33,31 @@ public class Disable implements Command {
 
     @Override
     public Permission getPermission() {
-        return Permission.ADMINISTRATOR;
+        return null;
     }
 
     @Override
     public void execute(Guild guild, User user, MessageChannel ch, Message msg, String command, String[] args) {
         
-        if(args.length != 1) {
-            EmbedBuilder embed = Messenger.getEmbedFrame();
-            embed.setDescription(Emoji.CrossMark.getValue() + " **Invalid arguement length.**");
-            embed.setColor(Color.RED);
-            Messenger.sendEmbed(ch, embed.build());
-            return;
-        }
-        
-        SupportType type = SupportType.fromString(args[0]);
+        SupportType type = SupportType.getSupportType(guild, ch.getName());
         if(type == null) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
-            embed.setDescription(Emoji.CrossMark.getValue() + " **Invalid support type.**");
+            embed.setDescription(Emoji.CrossMark.getValue() + " **You must be in a ticket channel to use this command.**");
             embed.setColor(Color.RED);
             Messenger.sendEmbed(ch, embed.build());
             return;
         }
         
-        new ServerConfig(guild.getId()).setSupportType(type, false);
-        type.getSupportType().disable(guild);
+        if(type.getSupportType().getOwner((TextChannel) ch).getId().equals(user.getId())) {
+            EmbedBuilder embed = Messenger.getEmbedFrame();
+            embed.setDescription(Emoji.CrossMark.getValue() + " **You cannot leave your own ticket without closing it.**");
+            embed.setColor(Color.RED);
+            Messenger.sendEmbed(ch, embed.build());
+            return;
+        }
         
-        EmbedBuilder embed = Messenger.getEmbedFrame();
-        embed.setDescription(Emoji.GreenCheck.getValue() + " **Support type disabled.**");
-        embed.setColor(Color.GREEN);
-        Messenger.sendEmbed(ch, embed.build());
+        type.getSupportType().removeUserFromTicket((TextChannel) ch, user);
         
     }
+
 }

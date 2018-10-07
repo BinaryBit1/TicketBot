@@ -10,11 +10,17 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
+import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
 import proj.bot.ticket.supports.SupportType;
 import proj.bot.ticket.utils.Messenger;
 
 public class Close implements Command {
+    
+    @Override
+    public boolean permissible() {
+        return false;
+    }
 
     @Override
     public boolean useRole() {
@@ -28,7 +34,7 @@ public class Close implements Command {
 
     @Override
     public Permission getPermission() {
-        return Permission.MESSAGE_WRITE;
+        return null;
     }
 
     @Override
@@ -43,9 +49,9 @@ public class Close implements Command {
             return;
         }
         
-        if(!type.getSupportType().getOwner((TextChannel) ch).getId().equals(user.getId()) && guild.getMember(user).getRoles().contains(SupportType.getSupportRole(guild))) {
+        if(!type.getSupportType().getOwner((TextChannel) ch).getId().equals(user.getId()) && !guild.getMember(user).getRoles().contains(SupportType.getSupportRole(guild)) && !Authenticator.hasPermission(guild, Permission.ADMINISTRATOR, user)) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
-            embed.setDescription(Emoji.CrossMark.getValue() + " **You must be the ticket owner, or a support staff, to remove members from this ticket.**");
+            embed.setDescription(Emoji.CrossMark.getValue() + " **You must be the ticket owner, or a support staff, to close this ticket.**");
             embed.setColor(Color.RED);
             Messenger.sendEmbed(ch, embed.build());
             return;
