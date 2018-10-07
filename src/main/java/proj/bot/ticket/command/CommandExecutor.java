@@ -8,11 +8,15 @@ import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.commands.Help;
 import proj.bot.ticket.command.commands.NA;
 import proj.bot.ticket.command.commands.NoPermission;
+import proj.bot.ticket.command.commands.TicketCreator;
+import proj.bot.ticket.supports.SupportType;
 
 public enum CommandExecutor {
     NA("NA", new NA()),
     NP("NP", new NoPermission()),
     HELP("HELP", new Help()),
+    
+    TICKET_CREATOR("TICKET_CREATOR", new TicketCreator()),
     ;
     
     private String identifier;
@@ -39,6 +43,8 @@ public enum CommandExecutor {
                        return NP;
                    }
                }
+            } else if(SupportType.fromString(cmd) != null) {
+                return TICKET_CREATOR;
             }
         }
         return NA;

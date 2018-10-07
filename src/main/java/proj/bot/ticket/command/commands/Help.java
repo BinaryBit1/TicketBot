@@ -1,6 +1,5 @@
 package proj.bot.ticket.command.commands;
 
-import java.awt.Color;
 import java.util.List;
 
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -80,7 +79,6 @@ public class Help implements Command {
 
         EmbedBuilder embed = Messenger.getEmbedFrame();
         embed.setDescription(sb.toString());
-        embed.setColor(Color.RED);
         Messenger.sendEmbed(user, embed.build());
     }
 

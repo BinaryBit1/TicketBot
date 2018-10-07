@@ -15,8 +15,10 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
+import proj.bot.ticket.config.ServerConfig;
 import proj.bot.ticket.config.TicketConfig;
 import proj.bot.ticket.events.TicketListener;
+import proj.bot.ticket.supports.SupportType;
 
 public class Ticket {
 
@@ -72,6 +74,16 @@ public class Ticket {
         
         setPlayingLoop();
         getInstance().jda.addEventListener(new TicketListener());
+        
+        getInstance().jda.getGuilds().stream().forEach(guild -> {
+            SupportType.getSupportRole(guild);
+            ServerConfig sconfig = new ServerConfig(guild.getId());
+            for(SupportType type : SupportType.values()) {
+                if(sconfig.getSupportType(type)) {
+                    type.getSupportType().enable(guild);
+                }
+            }
+        });
     }
     
     public void setPlayingLoop() {

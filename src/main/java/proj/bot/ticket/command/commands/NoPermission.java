@@ -35,7 +35,7 @@ public class NoPermission implements Command {
       try { msg.delete().queue(); } catch(Exception e) {}
         
       EmbedBuilder embed = Messenger.getEmbedFrame();
-      embed.setDescription(Emoji.CrossMark.getValue() + " **" + "I was unable to perform that action for you." + "**");
+      embed.setDescription(Emoji.CrossMark.getValue() + " **I was unable to perform that action for you.**");
       embed.setColor(Color.RED);
       Messenger.sendEmbed(user, embed.build());
     }
