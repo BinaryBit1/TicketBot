@@ -34,6 +34,7 @@ How To Use The Bot:
    - Can add anyone to a ticket.
    - Can close their own tickets.
 
+
 For any further support on this or any of my other projects, please visit the Discord below.
 
 Github: <https://github.com/BinaryBit1>
