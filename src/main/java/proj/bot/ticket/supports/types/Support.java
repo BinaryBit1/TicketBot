@@ -87,7 +87,7 @@ public class Support implements ISupportType {
                     addUserToTicket((TextChannel) ch, user);
 
                     EmbedBuilder embed = Messenger.getEmbedFrame(ch.getGuild());
-                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \nPlease explain how you can be helped.");
+                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \n\nPlease explain how you can be helped.");
                     Messenger.sendEmbed((TextChannel) ch, embed.build());
                 });
         

@@ -87,7 +87,7 @@ public class Bug implements ISupportType {
                     addUserToTicket((TextChannel) ch, user);
 
                     EmbedBuilder embed = Messenger.getEmbedFrame(ch.getGuild());
-                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \nPlease describe the bug in detail, and where it was found.");
+                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \n\nPlease describe the bug in detail, and where it was found.");
                     Messenger.sendEmbed((TextChannel) ch, embed.build());
                 });
         

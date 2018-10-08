@@ -87,7 +87,7 @@ public class Suggest implements ISupportType {
                     addUserToTicket((TextChannel) ch, user);
 
                     EmbedBuilder embed = Messenger.getEmbedFrame(ch.getGuild());
-                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \nPlease describe your suggestion in detail.");
+                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \n\nPlease describe your suggestion in detail.");
                     Messenger.sendEmbed((TextChannel) ch, embed.build());
                 });
         

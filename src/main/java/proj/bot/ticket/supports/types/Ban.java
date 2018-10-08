@@ -87,7 +87,7 @@ public class Ban implements ISupportType {
                     addUserToTicket((TextChannel) ch, user);
 
                     EmbedBuilder embed = Messenger.getEmbedFrame(ch.getGuild());
-                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \nPlease explain the situation.");
+                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \n\nPlease explain the situation.");
                     Messenger.sendEmbed((TextChannel) ch, embed.build());
                 });
         

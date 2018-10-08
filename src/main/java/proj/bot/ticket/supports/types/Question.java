@@ -87,7 +87,7 @@ public class Question implements ISupportType {
                     addUserToTicket((TextChannel) ch, user);
 
                     EmbedBuilder embed = Messenger.getEmbedFrame(ch.getGuild());
-                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \nPlease keep your question brief, and to the point.");
+                    embed.setDescription(Emoji.PageFacingUp.getValue() + " Ticket created! \n\nPlease keep your question brief, and to the point.");
                     Messenger.sendEmbed((TextChannel) ch, embed.build());
                 });
         
