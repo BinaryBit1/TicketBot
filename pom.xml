@@ -21,6 +21,7 @@
 			<version>3.7.1_388</version>
 			<exclusions>
 				<exclusion>
+					<groupId>club.minnced</groupId>
 					<artifactId>opus-java</artifactId>
 				</exclusion>
 			</exclusions>
@@ -87,10 +88,9 @@
 				<configuration>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
 					<artifactSet>
-						<includes>
-							<include>proj.api:Marble</include>
-							<include>net.dv8tion:JDA</include>
-						</includes>
+						<excludes>
+							<exclude>org.projectlombok:*</exclude>
+						</excludes>
 					</artifactSet>
 				</configuration>
 			</plugin>
