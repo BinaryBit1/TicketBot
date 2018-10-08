@@ -27,7 +27,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>api.proj.marble</groupId>
+			<groupId>proj.api</groupId>
 			<artifactId>Marble</artifactId>
 			<version>1</version>
 		</dependency>
@@ -88,7 +88,8 @@
 					<createDependencyReducedPom>false</createDependencyReducedPom>
 					<artifactSet>
 						<includes>
-							<include>*:*</include>
+							<include>proj.api:Marble</include>
+							<include>net.dv8tion:JDA</include>
 						</includes>
 					</artifactSet>
 				</configuration>
