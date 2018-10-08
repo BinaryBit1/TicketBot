@@ -7,8 +7,6 @@ import javax.security.auth.login.LoginException;
 
 import api.proj.marble.tasks.logwindow.LogListener;
 import api.proj.marble.tasks.logwindow.LogWindow;
-import api.proj.marble.tasks.threading.ThreadManager;
-import api.proj.marble.tasks.threading.Threadder;
 import lombok.Getter;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -72,7 +70,7 @@ public class Ticket {
         getInstance().initiated = true;
         System.out.println("Bot started!");
         
-        setPlayingLoop();
+        getInstance().jda.getPresence().setGame(Game.playing("Type: " + prefix + "help"));
         getInstance().jda.addEventListener(new TicketListener());
         
         getInstance().jda.getGuilds().stream().forEach(guild -> {
@@ -84,16 +82,6 @@ public class Ticket {
                 }
             }
         });
-    }
-    
-    public void setPlayingLoop() {
-        getInstance().jda.getPresence().setGame(Game.playing("Type: " + prefix + "help"));
-        ThreadManager.callNewThread(new Threadder() {
-            @Override
-            public void run() {
-                Ticket.getInstance().setPlayingLoop();
-            }
-        }, 86400000);
     }
 
     public static Color defColor(Guild guild) {
