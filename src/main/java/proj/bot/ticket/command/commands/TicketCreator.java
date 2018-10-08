@@ -9,6 +9,7 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
+import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
 import proj.bot.ticket.config.ServerConfig;
 import proj.bot.ticket.supports.SupportType;
@@ -59,7 +60,7 @@ public class TicketCreator implements Command {
             return;
         }
         
-        if(type.getSupportType().getTickets(guild, user).size() >= 5) {
+        if(type.getSupportType().getTickets(guild, user).size() >= 5 && !Authenticator.isSupport(guild, user)) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You have too many tickets open under that type.**");
             embed.setColor(Color.RED);

@@ -49,7 +49,7 @@ public class Close implements Command {
             return;
         }
         
-        if(!type.getSupportType().getOwner((TextChannel) ch).getId().equals(user.getId()) && !guild.getMember(user).getRoles().contains(SupportType.getSupportRole(guild)) && !Authenticator.hasPermission(guild, Permission.ADMINISTRATOR, user)) {
+        if(!type.getSupportType().getOwner((TextChannel) ch).getId().equals(user.getId()) && !Authenticator.isSupport(guild, user)) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You must be the ticket owner, or a support staff, to close this ticket.**");
             embed.setColor(Color.RED);

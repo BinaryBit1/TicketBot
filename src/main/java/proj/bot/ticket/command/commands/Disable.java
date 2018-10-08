@@ -9,7 +9,9 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
+import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
+import proj.bot.ticket.command.CommandExecutor;
 import proj.bot.ticket.config.ServerConfig;
 import proj.bot.ticket.supports.SupportType;
 import proj.bot.ticket.utils.Messenger;
@@ -18,7 +20,7 @@ public class Disable implements Command {
     
     @Override
     public boolean permissible() {
-        return true;
+        return false;
     }
 
     @Override
@@ -33,11 +35,15 @@ public class Disable implements Command {
 
     @Override
     public Permission getPermission() {
-        return Permission.ADMINISTRATOR;
+        return null;
     }
 
     @Override
     public void execute(Guild guild, User user, MessageChannel ch, Message msg, String command, String[] args) {
+        
+        if(!Authenticator.isSupport(guild, user)){
+            CommandExecutor.NP.execute(guild, user, ch, msg, command, args);
+        }
         
         if(args.length != 1) {
             EmbedBuilder embed = Messenger.getEmbedFrame();

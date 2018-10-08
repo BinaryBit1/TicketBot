@@ -10,6 +10,7 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
+import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
 import proj.bot.ticket.supports.SupportType;
 import proj.bot.ticket.utils.Messenger;
@@ -43,6 +44,14 @@ public class Leave implements Command {
         if(type == null) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You must be in a ticket channel to use this command.**");
+            embed.setColor(Color.RED);
+            Messenger.sendEmbed(ch, embed.build());
+            return;
+        }
+        
+        if(Authenticator.isSupport(guild, user)) {
+            EmbedBuilder embed = Messenger.getEmbedFrame();
+            embed.setDescription(Emoji.CrossMark.getValue() + " **You cannot leave tickets as support staff.**");
             embed.setColor(Color.RED);
             Messenger.sendEmbed(ch, embed.build());
             return;

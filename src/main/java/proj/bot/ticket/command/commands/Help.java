@@ -42,20 +42,22 @@ public class Help implements Command {
         
         try { msg.delete().queue(); } catch(Exception e) {}
         
-        boolean isAdmin = Authenticator.hasPermission(guild, Permission.ADMINISTRATOR, user);
         StringBuilder sb = new StringBuilder();
 
         sb.append("__**Ticket Bot Help Menu**__").append(System.getProperty("line.separator")).append(System.getProperty("line.separator"));
 
-        if (isAdmin) {
-            sb.append("**Administration**").append(System.getProperty("line.separator"));
+        if (Authenticator.isSupport(guild, user)) {
+            sb.append("**Support Staff & Administrators**").append(System.getProperty("line.separator"));
             sb.append("Administrating this bot is fairly simple.").append(System.getProperty("line.separator"));
             sb.append("By default, all support types are disabled for your server.").append(System.getProperty("line.separator"));
             sb.append("To add a player to the Ticket Blacklist: \"" + Ticket.getInstance().prefix + "blacklist add ExampleUser#0000\".").append(System.getProperty("line.separator"));
             sb.append("To remove a player from the Ticket Blacklist: \"" + Ticket.getInstance().prefix + "blacklist remove ExampleUser#0000\".").append(System.getProperty("line.separator"));
             sb.append("To enable a support type and set it up: \"" + Ticket.getInstance().prefix + "enable (Support Type)\"").append(System.getProperty("line.separator"));
             sb.append("To disable the setting and remove it: \"" + Ticket.getInstance().prefix + "disable (Support Type)\"").append(System.getProperty("line.separator"));
-            sb.append("For support staff to have ticket acsess, they ***MUST*** have the role: \"Support Specialist\"").append(System.getProperty("line.separator"));
+            sb.append("Memebers with \"Administrator\" permission or \"Support Specialist\" role:").append(System.getProperty("line.separator"));
+            sb.append(" - May create as many tickets as they wish.").append(System.getProperty("line.separator"));
+            sb.append(" - Have access to all tickets.").append(System.getProperty("line.separator"));
+            sb.append(" - May close any tickets.").append(System.getProperty("line.separator"));
             sb.append("All Support Types:").append(System.getProperty("line.separator"));
             for(SupportType type : SupportType.values()) {
                 sb.append(" - " + type.getString()).append(System.getProperty("line.separator"));
