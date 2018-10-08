@@ -1,5 +1,5 @@
 # TicketBot
-Ticket support bot for Discord Servers.
+Ticket support bot for Discord servers.
 
 How To Download:
   - Clone the Marble API and add to your IDE from here: https://github.com/BinaryBit1/Marble
