@@ -1,5 +1,6 @@
 package proj.bot.ticket.command;
 
+import lombok.Getter;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -32,7 +33,10 @@ public enum CommandExecutor {
     TICKET_CREATOR("TICKET_CREATOR", new TicketCreator()),
     ;
     
+    @Getter
     private String identifier;
+    
+    @Getter
     private Command command;
     
     CommandExecutor(String identifier, Command command) {
@@ -44,15 +48,15 @@ public enum CommandExecutor {
         for(CommandExecutor ce : CommandExecutor.values()) {
             if(ce.getIdentifier().equalsIgnoreCase(cmd)) {
                 
-                if(ce.getCommandClass().permissible()) {
-                    if(ce.getCommandClass().useRole()) {
-                        if(Authenticator.hasRole(guild, ce.getCommandClass().getRole(), user)) {
+                if(ce.getCommand().permissible()) {
+                    if(ce.getCommand().useRole()) {
+                        if(Authenticator.hasRole(guild, ce.getCommand().getRole(), user)) {
                             return ce;
                         } else {
                             return NP;
                         }
                     }else {
-                        if(Authenticator.hasPermission(guild, ce.getCommandClass().getPermission(), user)) {
+                        if(Authenticator.hasPermission(guild, ce.getCommand().getPermission(), user)) {
                             return ce;
                         } else {
                             return NP;
@@ -71,14 +75,6 @@ public enum CommandExecutor {
     public void execute(Guild guild, User user, MessageChannel ch, Message msg, String command, String[] args) {
         if(this.equals(CommandExecutor.NA))
             return;
-        getCommandClass().execute(guild, user, ch, msg, command, args);
-    }
-    
-    public String getIdentifier() {
-        return identifier;
-    }
-    
-    public Command getCommandClass() {
-        return command;
+        getCommand().execute(guild, user, ch, msg, command, args);
     }
 }
