@@ -20,12 +20,11 @@ How To Set Up Jar:
  
 How To Use The Bot:
  - To add the hosted Bot to your server, this link: https://discordapp.com/api/oauth2/authorize?client_id=498422164077150218&permissions=268724240&scope=bot
- - Guild Administrators:
+ - Guild Administrators & Support Specialists:
    - Will receive an exclusive addition to their help message describing how to setup the bot.
    - Will receive access to exclusiuve commands to set up the bot.
    - Can blacklist users from creating tickets.
    - Can enable/disable support types.
- - Guild Memebers With "Support Specialist" Role:
    - Will have the ability to access all tickets.
    - Will be able to close any tickets.
  - All Users:
