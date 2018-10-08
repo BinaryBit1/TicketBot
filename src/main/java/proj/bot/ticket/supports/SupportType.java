@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Role;
+import proj.bot.ticket.config.ServerConfig;
 import proj.bot.ticket.supports.types.Ban;
 import proj.bot.ticket.supports.types.Bug;
 import proj.bot.ticket.supports.types.Question;
@@ -55,7 +56,7 @@ public enum SupportType {
     }
     
     public static SupportType getSupportType(Guild guild, String channelName) {
-        for(SupportType type : SupportType.values()) {
+        for(SupportType type : new ServerConfig(guild.getId()).getEnabledSupports()) {
             if(type.getSupportType().getTicket(guild, channelName) != null)
                 return type;
         }

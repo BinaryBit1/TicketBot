@@ -88,8 +88,7 @@
 					<createDependencyReducedPom>false</createDependencyReducedPom>
 					<artifactSet>
 						<includes>
-							<include>api.proj.marble:Marble</include>
-							<include>net.dv8tion:JDA</include>
+							<include>*:*</include>
 						</includes>
 					</artifactSet>
 				</configuration>
