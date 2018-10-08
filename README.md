@@ -37,5 +37,7 @@ How To Use The Bot:
 For any further support on this or any of my other projects, please visit the Discord below.
 
 Github: <https://github.com/BinaryBit1>
+
 Donation link: <https://paypal.me/BinaryBit>
+
 Discord Invite Link: <https://discord.gg/NWbjTEC>
