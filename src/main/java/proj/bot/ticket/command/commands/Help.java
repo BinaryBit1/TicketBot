@@ -8,7 +8,7 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
-import proj.bot.ticket.Ticket;
+import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
 import proj.bot.ticket.config.ServerConfig;
@@ -50,10 +50,10 @@ public class Help implements Command {
             sb.append("**Support Staff & Administrators**").append(System.getProperty("line.separator"));
             sb.append("Administrating this bot is fairly simple.").append(System.getProperty("line.separator"));
             sb.append("By default, all support types are disabled for your server.").append(System.getProperty("line.separator"));
-            sb.append("To add a player to the Ticket Blacklist: \"" + Ticket.getInstance().prefix + "blacklist add ExampleUser#0000\".").append(System.getProperty("line.separator"));
-            sb.append("To remove a player from the Ticket Blacklist: \"" + Ticket.getInstance().prefix + "blacklist remove ExampleUser#0000\".").append(System.getProperty("line.separator"));
-            sb.append("To enable a support type and set it up: \"" + Ticket.getInstance().prefix + "enable (Support Type)\"").append(System.getProperty("line.separator"));
-            sb.append("To disable the setting and remove it: \"" + Ticket.getInstance().prefix + "disable (Support Type)\"").append(System.getProperty("line.separator"));
+            sb.append("To add a player to the Ticket Blacklist: \"" + TicketBot.getInstance().prefix + "blacklist add ExampleUser#0000\".").append(System.getProperty("line.separator"));
+            sb.append("To remove a player from the Ticket Blacklist: \"" + TicketBot.getInstance().prefix + "blacklist remove ExampleUser#0000\".").append(System.getProperty("line.separator"));
+            sb.append("To enable a support type and set it up: \"" + TicketBot.getInstance().prefix + "enable (Support Type)\"").append(System.getProperty("line.separator"));
+            sb.append("To disable the setting and remove it: \"" + TicketBot.getInstance().prefix + "disable (Support Type)\"").append(System.getProperty("line.separator"));
             sb.append("Memebers with \"Administrator\" permission or \"Support Specialist\" role:").append(System.getProperty("line.separator"));
             sb.append(" - May create as many tickets as they wish.").append(System.getProperty("line.separator"));
             sb.append(" - Have access to all tickets.").append(System.getProperty("line.separator"));
@@ -73,10 +73,10 @@ public class Help implements Command {
             sb.append("**Creating a ticket**").append(System.getProperty("line.separator"));
             sb.append("Creating a ticket is extremely easy!").append(System.getProperty("line.separator"));
             sb.append("Simply type the command, and a new ticket is created.").append(System.getProperty("line.separator"));
-            sb.append("To add a user to the ticket: \"" + Ticket.getInstance().prefix + "add ExampleUser#0000\" in the ticket channel.").append(System.getProperty("line.separator"));
-            sb.append("To remove a user from the ticket: \"" + Ticket.getInstance().prefix + "remove ExampleUser#0000\" in the ticket channel.").append(System.getProperty("line.separator"));
-            sb.append("To leave a ticket: \"" + Ticket.getInstance().prefix + "leave\" in the ticket channel.").append(System.getProperty("line.separator"));
-            sb.append("If you wish to close your ticket: \"" + Ticket.getInstance().prefix + "close\" in the ticket channel.").append(System.getProperty("line.separator"));
+            sb.append("To add a user to the ticket: \"" + TicketBot.getInstance().prefix + "add ExampleUser#0000\" in the ticket channel.").append(System.getProperty("line.separator"));
+            sb.append("To remove a user from the ticket: \"" + TicketBot.getInstance().prefix + "remove ExampleUser#0000\" in the ticket channel.").append(System.getProperty("line.separator"));
+            sb.append("To leave a ticket: \"" + TicketBot.getInstance().prefix + "leave\" in the ticket channel.").append(System.getProperty("line.separator"));
+            sb.append("If you wish to close your ticket: \"" + TicketBot.getInstance().prefix + "close\" in the ticket channel.").append(System.getProperty("line.separator"));
             sb.append("You are allowed a maximum of 5 tickets per type.").append(System.getProperty("line.separator"));
             sb.append("Support commands:").append(System.getProperty("line.separator"));
             for(SupportType type : enabledSupports) {

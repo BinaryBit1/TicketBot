@@ -63,7 +63,7 @@ public class Enable implements Command {
         }
         
         new ServerConfig(guild.getId()).setSupportType(type, true);
-        type.getSupportType().enable(guild);
+        type.enable(guild);
         
         EmbedBuilder embed = Messenger.getEmbedFrame();
         embed.setDescription(Emoji.GreenCheck.getValue() + " **Support type enabled.**");

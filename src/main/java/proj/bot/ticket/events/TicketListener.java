@@ -8,13 +8,13 @@ import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import proj.bot.ticket.Ticket;
+import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.command.CommandExecutor;
 import proj.bot.ticket.supports.SupportType;
 
 public class TicketListener extends ListenerAdapter {
 
-    public static final String prefix = Ticket.getInstance().prefix;
+    public static final String prefix = TicketBot.getInstance().prefix;
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {

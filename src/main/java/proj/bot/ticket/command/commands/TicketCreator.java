@@ -13,6 +13,7 @@ import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
 import proj.bot.ticket.config.ServerConfig;
 import proj.bot.ticket.supports.SupportType;
+import proj.bot.ticket.supports.Ticket;
 import proj.bot.ticket.utils.Messenger;
 
 public class TicketCreator implements Command {
@@ -60,7 +61,7 @@ public class TicketCreator implements Command {
             return;
         }
         
-        if(type.getSupportType().getTickets(guild, user).size() >= 5 && !Authenticator.isSupport(guild, user)) {
+        if(type.getTickets(guild, user).size() >= 5 && !Authenticator.isSupport(guild, user)) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You have too many tickets open under that type.**");
             embed.setColor(Color.RED);
@@ -68,7 +69,8 @@ public class TicketCreator implements Command {
             return;
         }
         
-        type.getSupportType().createTicket(guild, user);
+        Ticket ticket = new Ticket(type, guild, user);
+        ticket.create();
     }
 
 }

@@ -18,12 +18,12 @@ import proj.bot.ticket.config.TicketConfig;
 import proj.bot.ticket.events.TicketListener;
 import proj.bot.ticket.supports.SupportType;
 
-public class Ticket {
+public class TicketBot {
 
     public static String filePath;
     
     @Getter
-    private static Ticket instance;
+    private static TicketBot instance;
     @Getter
     private JDA jda;
     public LogWindow logger;
@@ -34,9 +34,9 @@ public class Ticket {
 
     public static void main(String[] args) throws LoginException, InterruptedException {
         if(args.length > 0 && args[0].equalsIgnoreCase("nogui")) {
-            new Ticket().enable();
+            new TicketBot().enable();
         } else {
-            new Ticket().enableGUI();
+            new TicketBot().enableGUI();
         }
     }
     
@@ -56,7 +56,7 @@ public class Ticket {
     public void init() {
         System.out.println("Starting Bot, please wait...");
         
-        try { filePath = new File(Ticket.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().toString()).getParent(); } catch(Exception e) {e.printStackTrace(); System.out.println("Error getting file path, shutting down."); return;}
+        try { filePath = new File(TicketBot.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath().toString()).getParent(); } catch(Exception e) {e.printStackTrace(); System.out.println("Error getting file path, shutting down."); return;}
         
         TicketConfig config = new TicketConfig(filePath, "TicketConfig.yml");
         prefix = config.getPrefixIdentifier();
@@ -78,7 +78,7 @@ public class Ticket {
             ServerConfig sconfig = new ServerConfig(guild.getId());
             for(SupportType type : SupportType.values()) {
                 if(sconfig.getSupportType(type)) {
-                    type.getSupportType().enable(guild);
+                    type.enable(guild);
                 }
             }
         });
@@ -91,13 +91,13 @@ public class Ticket {
 
 class ListenerClass implements LogListener {
 
-    JDA jda(){return Ticket.getInstance().getJda();}
-    LogWindow logger = Ticket.getInstance().logger;
+    JDA jda(){return TicketBot.getInstance().getJda();}
+    LogWindow logger = TicketBot.getInstance().logger;
 
     @Override
     public void onLogInput(String input) {
             logger.log("All bot interactions will now be in Discord. Nothing further to do here...");
-            logger.log("If you wish to get help using the bot, type \"" + Ticket.getInstance().prefix + "help\" in the discord chat.");
+            logger.log("If you wish to get help using the bot, type \"" + TicketBot.getInstance().prefix + "help\" in the discord chat.");
             logger.log("If you wish to stop the bot, simply close the window.");
     }
 

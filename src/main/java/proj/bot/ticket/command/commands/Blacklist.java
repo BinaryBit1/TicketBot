@@ -10,7 +10,7 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
-import proj.bot.ticket.Ticket;
+import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
 import proj.bot.ticket.command.CommandExecutor;
@@ -73,7 +73,7 @@ public class Blacklist implements Command {
             return;
         }
         
-        List<User> users = Ticket.getInstance().getJda().getUsersByName(tagged.split("#")[0], false);
+        List<User> users = TicketBot.getInstance().getJda().getUsersByName(tagged.split("#")[0], false);
         User taggedUser = null;
         for(User u : users) {
             if(u.getDiscriminator().equals(tagged.split("#")[1])) {

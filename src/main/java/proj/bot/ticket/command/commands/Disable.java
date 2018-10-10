@@ -63,7 +63,7 @@ public class Disable implements Command {
         }
         
         new ServerConfig(guild.getId()).setSupportType(type, false);
-        type.getSupportType().disable(guild);
+        type.disable(guild);
         
         EmbedBuilder embed = Messenger.getEmbedFrame();
         embed.setDescription(Emoji.GreenCheck.getValue() + " **Support type disabled.**");

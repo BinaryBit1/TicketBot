@@ -5,7 +5,7 @@ import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.entities.User;
-import proj.bot.ticket.Ticket;
+import proj.bot.ticket.TicketBot;
 
 public class Messenger {
     
@@ -26,12 +26,12 @@ public class Messenger {
     }
     
     public static EmbedBuilder getEmbedFrame(Guild guild) {
-        User maker = Ticket.getInstance().getJda().getUserById("92191261095636992");
-        return new EmbedBuilder().setColor(Ticket.defColor(guild)).setFooter(maker.getName() + " Powered!" + " (" + maker.getName() + "#" + maker.getDiscriminator() + ")", maker.getAvatarUrl());
+        User maker = TicketBot.getInstance().getJda().getUserById("92191261095636992");
+        return new EmbedBuilder().setColor(TicketBot.defColor(guild)).setFooter(maker.getName() + " Powered!" + " (" + maker.getName() + "#" + maker.getDiscriminator() + ")", maker.getAvatarUrl());
     }
     
     public static EmbedBuilder getEmbedFrame() {
-        User maker = Ticket.getInstance().getJda().getUserById("92191261095636992");
+        User maker = TicketBot.getInstance().getJda().getUserById("92191261095636992");
         return new EmbedBuilder().setFooter(maker.getName() + " Powered!" + " (" + maker.getName() + "#" + maker.getDiscriminator() + ")", maker.getAvatarUrl());
     }
 

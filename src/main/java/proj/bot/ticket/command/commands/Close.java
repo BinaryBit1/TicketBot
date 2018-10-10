@@ -8,11 +8,10 @@ import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
-import proj.bot.ticket.supports.SupportType;
+import proj.bot.ticket.supports.Ticket;
 import proj.bot.ticket.utils.Messenger;
 
 public class Close implements Command {
@@ -40,8 +39,8 @@ public class Close implements Command {
     @Override
     public void execute(Guild guild, User user, MessageChannel ch, Message msg, String command, String[] args) {
         
-        SupportType type = SupportType.getSupportType(guild, ch.getName());
-        if(type == null) {
+        Ticket ticket = Ticket.from(guild, ch.getName());
+        if(ticket == null) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You must be in a ticket channel to use this command.**");
             embed.setColor(Color.RED);
@@ -49,15 +48,15 @@ public class Close implements Command {
             return;
         }
         
-        if(!type.getSupportType().getOwner((TextChannel) ch).getId().equals(user.getId()) && !Authenticator.isSupport(guild, user)) {
+        if(!Authenticator.isSupport(guild, user) && !ticket.getOwner().getId().equals(user.getId())) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
-            embed.setDescription(Emoji.CrossMark.getValue() + " **You must be the ticket owner, or a support staff, to close this ticket.**");
+            embed.setDescription(Emoji.CrossMark.getValue() + " **You must be the ticket owner, or part of the support staff, to close this ticket.**");
             embed.setColor(Color.RED);
             Messenger.sendEmbed(ch, embed.build());
             return;
         }
         
-        type.getSupportType().closeTicket((TextChannel) ch);
+        ticket.close();
         
     }
 
