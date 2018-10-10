@@ -35,7 +35,7 @@ public class Ticket {
     public Ticket(SupportType type, Guild guild, User owner, String id) {
         this.type = type;
         this.guild = guild;
-        this.id = UUID.randomUUID().toString();
+        this.id = id;
         this.owner = owner;
     }
     
@@ -97,10 +97,15 @@ public class Ticket {
     }
     
     public TextChannel getChannel() {
+        System.out.println(" ");
         List<Channel> tickets = type.getCategory(guild).getChannels();
         List<TextChannel> ticket = new ArrayList<>();  
         tickets.stream().forEach(ch -> {
+            System.out.println("Channel name - " + ch.getName());
+            System.out.println("id - " + id);
+            System.out.println("Is Text Channel - " + (ch instanceof TextChannel));
             if(ch instanceof TextChannel) {
+                System.out.println("Id equals channel name - " + (ch.getName().equals(id)));
                 if(ch.getName().equals(id)) {
                     ticket.add((TextChannel)ch);
                 }
