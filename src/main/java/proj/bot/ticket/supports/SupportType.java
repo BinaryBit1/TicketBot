@@ -13,22 +13,24 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import proj.bot.ticket.supports.types.Ban;
+import proj.bot.ticket.supports.types.Billing;
 import proj.bot.ticket.supports.types.Bug;
 import proj.bot.ticket.supports.types.Question;
 import proj.bot.ticket.supports.types.Rank;
-import proj.bot.ticket.supports.types.Rolee;
 import proj.bot.ticket.supports.types.Suggest;
 import proj.bot.ticket.supports.types.Support;
 
 public enum SupportType {
 
     BAN("ban", new Ban()),
+    BILLING("billing", new Billing()),
     BUG("bug", new Bug()),
     QUESTION("question", new Question()),
     RANK("rank", new Rank()),
-    ROLE("role", new Rolee()),
+    ROLE("role", new proj.bot.ticket.supports.types.Role()),
     SUGGEST("suggest", new Suggest()),
     SUPPORT("support", new Support()),
+    TICKET("ticket", new proj.bot.ticket.supports.types.Ticket()),
     ;
     
     @Getter

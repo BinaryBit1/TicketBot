@@ -3,8 +3,9 @@ package proj.bot.ticket.supports.types;
 import api.proj.marble.lib.emoji.Emoji;
 import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.supports.ISupportType;
+import proj.bot.ticket.supports.SupportType;
 
-public class Rolee implements ISupportType {
+public class Role implements ISupportType {
 
     @Override
     public String getConfigPath() {
@@ -13,7 +14,7 @@ public class Rolee implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To request a role: " + "*\"" + TicketBot.getInstance().prefix + "role\"*";
+        return "To request a role: " + "*\"" + TicketBot.getInstance().prefix + SupportType.ROLE + "\"*";
     }
 
     @Override

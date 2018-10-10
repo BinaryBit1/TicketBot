@@ -3,6 +3,7 @@ package proj.bot.ticket.supports.types;
 import api.proj.marble.lib.emoji.Emoji;
 import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.supports.ISupportType;
+import proj.bot.ticket.supports.SupportType;
 
 public class Support implements ISupportType {
 
@@ -13,7 +14,7 @@ public class Support implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To request support: " + "*\"" + TicketBot.getInstance().prefix + "support\"*";
+        return "To request support: " + "*\"" + TicketBot.getInstance().prefix + SupportType.SUPPORT + "\"*";
     }
 
     @Override
