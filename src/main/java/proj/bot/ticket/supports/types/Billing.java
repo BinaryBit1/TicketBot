@@ -14,7 +14,7 @@ public class Billing implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To inquire about billing: " + "*\"" + TicketBot.getInstance().prefix + SupportType.BILLING.getString() + "\"*";
+        return TicketBot.getInstance().prefix + SupportType.BILLING.getString();
     }
 
     @Override

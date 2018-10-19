@@ -14,7 +14,7 @@ public class Role implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To request a role: " + "*\"" + TicketBot.getInstance().prefix + SupportType.ROLE.getString() + "\"*";
+        return TicketBot.getInstance().prefix + SupportType.ROLE.getString();
     }
 
     @Override

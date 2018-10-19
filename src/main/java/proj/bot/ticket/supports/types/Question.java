@@ -14,7 +14,7 @@ public class Question implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To submit a question: " + "*\"" + TicketBot.getInstance().prefix + SupportType.QUESTION.getString() + "\"*";
+        return TicketBot.getInstance().prefix + SupportType.QUESTION.getString();
     }
 
     @Override

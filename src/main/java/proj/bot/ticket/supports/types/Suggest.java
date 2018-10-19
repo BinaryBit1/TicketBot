@@ -14,7 +14,7 @@ public class Suggest implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To submit a suggestion: " + "*\"" + TicketBot.getInstance().prefix + SupportType.SUGGEST.getString() + "\"*";
+        return TicketBot.getInstance().prefix + SupportType.SUGGEST.getString();
     }
 
     @Override

@@ -14,7 +14,7 @@ public class Ticket implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To create a general ticket: " + "*\"" + TicketBot.getInstance().prefix + SupportType.TICKET.getString() + "\"*";
+        return TicketBot.getInstance().prefix + SupportType.TICKET.getString();
     }
 
     @Override

@@ -14,7 +14,7 @@ public class Support implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To request support: " + "*\"" + TicketBot.getInstance().prefix + SupportType.SUPPORT.getString() + "\"*";
+        return TicketBot.getInstance().prefix + SupportType.SUPPORT.getString();
     }
 
     @Override

@@ -14,7 +14,7 @@ public class Rank implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To request a rank: " + "*\"" + TicketBot.getInstance().prefix + SupportType.RANK.getString() + "\"*";
+        return TicketBot.getInstance().prefix + SupportType.RANK.getString();
     }
 
     @Override
