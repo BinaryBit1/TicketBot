@@ -1,17 +1,21 @@
 package proj.bot.ticket.supports;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
 
 import api.proj.marble.lib.emoji.Emoji;
+import api.proj.marble.lib.uid.UID;
 import api.proj.marble.tasks.threading.ThreadManager;
 import api.proj.marble.tasks.threading.Threadder;
 import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 import proj.bot.ticket.TicketBot;
@@ -42,7 +46,9 @@ public class Ticket {
     public Ticket(SupportType type, Guild guild, User owner) {
         this.type = type;
         this.guild = guild;
-        this.id = UUID.randomUUID().toString();
+        generateId();
+        while(type.containsChannel(guild, id))
+            generateId();
         this.owner = owner;
     }
     
@@ -77,8 +83,10 @@ public class Ticket {
     }
     
     public User getOwner() {
-        if(owner == null)
+        if(owner == null) {
             owner = TicketBot.getInstance().getJda().getSelfUser();
+            getChannel().getManager().setTopic(owner.getId());
+        }
         return owner;
     }
     
@@ -89,10 +97,10 @@ public class Ticket {
         .addPermissionOverride(SupportType.getPublicRole(guild), SupportType.getPublicAllow(), SupportType.getPublicDeny())
         .addPermissionOverride(SupportType.getSupportRole(guild), SupportType.getSupportAllow(), SupportType.getSupportDeny())
         .queue(ch -> {
-            addUser(owner);
             EmbedBuilder embed = Messenger.getEmbedFrame(ch.getGuild());
-            embed.setDescription(type.getSupportType().getTicketCreatedMessage());
+            embed.setDescription(Emoji.PageFacingUp.getValue() + " ***Ticket created!*** \n\n" + type.getSupportType().getTicketCreatedMessage());
             Messenger.sendEmbed((TextChannel) ch, embed.build());
+            addUser(owner);
         });
     }
     
@@ -113,35 +121,49 @@ public class Ticket {
     }
     
     public void addUser(User user) {
-        if(getChannel().getPermissionOverride(guild.getMember(user)) == null) {
-            getChannel().createPermissionOverride(guild.getMember(user)).setAllow(SupportType.getSupportAllow()).setDeny(SupportType.getSupportDeny()).queue();
+        TextChannel ch = getChannel();
+        if(ch.getPermissionOverride(guild.getMember(user)) == null) {
+            ch.createPermissionOverride(guild.getMember(user)).setAllow(SupportType.getSupportAllow()).setDeny(SupportType.getSupportDeny()).queue();
         }
         EmbedBuilder embed = Messenger.getEmbedFrame(guild);
-        embed.setDescription(Emoji.GreenCheck.getValue() + " " + user.getName() + " added to ticket!");
-        Messenger.sendEmbed(getChannel(), embed.build());
+        embed.setDescription(Emoji.GreenCheck.getValue() + " **" + user.getName() + "** added to ticket!");
+        Messenger.sendEmbed(ch, embed.build());
+        ch.sendMessage(user.getAsMention()).queue(msg -> msg.delete().queue());
     }
     
     public void removeUser(User user) {
-        if (getChannel().getPermissionOverride(guild.getMember(user)) != null) {
-            getChannel().getPermissionOverride(guild.getMember(user)).delete().queue();
+        TextChannel ch = getChannel();
+        if (ch.getPermissionOverride(guild.getMember(user)) != null) {
+            ch.getPermissionOverride(guild.getMember(user)).delete().queue();
         }
 
         EmbedBuilder embed = Messenger.getEmbedFrame(guild);
-        embed.setDescription(Emoji.CrossMark.getValue() + " " + user.getName() + " removed from ticket!");
-        Messenger.sendEmbed(getChannel(), embed.build());
+        embed.setDescription(Emoji.CrossMark.getValue() + " **" + user.getName() + "** removed from ticket!");
+        Messenger.sendEmbed(ch, embed.build());
     }
     
     public void close() {
+        TextChannel ch = getChannel();
+        
+        ch.getMemberPermissionOverrides().forEach(po -> {
+            Member member = po.getMember();
+            ch.putPermissionOverride(member).setAllow(EnumSet.of(Permission.MESSAGE_READ)).setDeny(EnumSet.of(Permission.MESSAGE_WRITE)).queue();
+        });
+        
         EmbedBuilder embed = Messenger.getEmbedFrame(guild);
-        embed.setDescription(Emoji.RedCircle.getValue() + " Ticket closing in 20 seconds.");
-        Messenger.sendEmbed(getChannel(), embed.build());
+        embed.setDescription(Emoji.Lock.getValue() + " Ticket closing in `20` seconds.");
+        Messenger.sendEmbed(ch, embed.build());
         UUID thread = ThreadManager.callNewThread(new Threadder() {
             @Override
             public void run() {
-                getChannel().delete().queue();
+                ch.delete().queue();
             }
         }, 20000L);
         ThreadManager.get(thread).start();
+    }
+    
+    private void generateId() {
+        this.id = type.getAbr() + "-" + UID.randomUID().toString().toLowerCase();
     }
 
 }

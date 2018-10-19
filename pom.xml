@@ -87,11 +87,6 @@
 				</executions>
 				<configuration>
 					<createDependencyReducedPom>false</createDependencyReducedPom>
-					<artifactSet>
-						<excludes>
-							<exclude>org.projectlombok:*</exclude>
-						</excludes>
-					</artifactSet>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -14,7 +14,7 @@ public class Ticket implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To create a general ticket: " + "*\"" + TicketBot.getInstance().prefix + SupportType.TICKET + "\"*";
+        return "To create a general ticket: " + "*\"" + TicketBot.getInstance().prefix + SupportType.TICKET.getString() + "\"*";
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Ticket implements ISupportType {
 
     @Override
     public String getTicketCreatedMessage() {
-        return Emoji.PageFacingUp.getValue() + " Ticket created! \n\nPlease explain how you can be helped.";
+        return "How can we help you?";
     }
     
 }

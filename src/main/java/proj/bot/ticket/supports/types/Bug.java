@@ -14,7 +14,7 @@ public class Bug implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To report a bug: " + "*\"" + TicketBot.getInstance().prefix + SupportType.BUG + "\"*";
+        return "To report a bug: " + "*\"" + TicketBot.getInstance().prefix + SupportType.BUG.getString() + "\"*";
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Bug implements ISupportType {
 
     @Override
     public String getTicketCreatedMessage() {
-        return Emoji.PageFacingUp.getValue() + " Ticket created! \n\nPlease describe the bug in detail, and how it was discovered.";
+        return "Please describe the bug in detail, and how it was discovered.";
     }
 
 }

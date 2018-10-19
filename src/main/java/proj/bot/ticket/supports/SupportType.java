@@ -22,25 +22,29 @@ import proj.bot.ticket.supports.types.Support;
 
 public enum SupportType {
 
-    BAN("ban", new Ban()),
-    BILLING("billing", new Billing()),
-    BUG("bug", new Bug()),
-    QUESTION("question", new Question()),
-    RANK("rank", new Rank()),
-    ROLE("role", new proj.bot.ticket.supports.types.Role()),
-    SUGGEST("suggest", new Suggest()),
-    SUPPORT("support", new Support()),
-    TICKET("ticket", new proj.bot.ticket.supports.types.Ticket()),
+    BAN("ban", "bn", new Ban()),
+    BILLING("billing", "blg", new Billing()),
+    BUG("bug", "bg", new Bug()),
+    QUESTION("question", "qst", new Question()),
+    RANK("rank", "rnk", new Rank()),
+    ROLE("role", "rl", new proj.bot.ticket.supports.types.Role()),
+    SUGGEST("suggest", "sgt", new Suggest()),
+    SUPPORT("support", "spt", new Support()),
+    TICKET("ticket", "tkt", new proj.bot.ticket.supports.types.Ticket()),
     ;
     
     @Getter
     private String string;
     
     @Getter
+    private String abr;
+    
+    @Getter
     private ISupportType supportType;
     
-    SupportType(String string, ISupportType supportType){
+    SupportType(String string, String abr, ISupportType supportType){
         this.string = string;
+        this.abr = abr;
         this.supportType = supportType;
     }
     
@@ -92,6 +96,18 @@ public enum SupportType {
             }
         });
         return tickets;
+    }
+    
+    public boolean containsChannel(Guild guild, String channelName) {
+        Category cat = getCategory(guild);
+        List<Channel> channels = cat.getChannels();
+        if(!channels.isEmpty()) {
+            for(Channel ch : channels) {
+                if(ch.getName().equals(channelName))
+                    return true;
+            }
+        }
+        return false;
     }
 
     public void disable(Guild guild) {

@@ -14,7 +14,7 @@ public class Role implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To request a role: " + "*\"" + TicketBot.getInstance().prefix + SupportType.ROLE + "\"*";
+        return "To request a role: " + "*\"" + TicketBot.getInstance().prefix + SupportType.ROLE.getString() + "\"*";
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Role implements ISupportType {
 
     @Override
     public String getTicketCreatedMessage() {
-        return Emoji.PageFacingUp.getValue() + " Ticket created! \n\nPlease describe the purpose of this request.";
+        return "What role and you requesting?";
     }
     
 }

@@ -14,7 +14,7 @@ public class Ban implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To submit a ban appeal: " + "*\"" + TicketBot.getInstance().prefix + SupportType.BAN + "\"*";
+        return "To submit a ban appeal: " + "*\"" + TicketBot.getInstance().prefix + SupportType.BAN.getString() + "\"*";
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Ban implements ISupportType {
 
     @Override
     public String getTicketCreatedMessage() {
-        return Emoji.PageFacingUp.getValue() + " Ticket created! \n\nPlease explain the situation.";
+        return "Please explain the situation.";
     }
     
 }

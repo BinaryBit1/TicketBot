@@ -14,7 +14,7 @@ public class Suggest implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To submit a suggestion: " + "*\"" + TicketBot.getInstance().prefix + SupportType.SUGGEST + "\"*";
+        return "To submit a suggestion: " + "*\"" + TicketBot.getInstance().prefix + SupportType.SUGGEST.getString() + "\"*";
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Suggest implements ISupportType {
 
     @Override
     public String getTicketCreatedMessage() {
-        return Emoji.PageFacingUp.getValue() + " Ticket created! \n\nPlease describe your suggestion in detail.";
+        return "What can we improve, and how?";
     }
 
 }

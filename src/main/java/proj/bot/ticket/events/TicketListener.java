@@ -6,10 +6,12 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.command.CommandExecutor;
+import proj.bot.ticket.config.ServerConfig;
 import proj.bot.ticket.supports.SupportType;
 
 public class TicketListener extends ListenerAdapter {
@@ -31,5 +33,14 @@ public class TicketListener extends ListenerAdapter {
     @Override
     public void onGuildJoin(GuildJoinEvent event) {
         SupportType.getSupportRole(event.getGuild());
+    }
+    
+    @Override
+    public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
+        new ServerConfig(event.getGuild().getId()).getEnabledSupports().stream().forEach(type -> {
+            type.getTickets(event.getGuild(), event.getUser()).stream().forEach(ticket -> {
+                ticket.close();
+            });
+        });
     }
 }

@@ -14,7 +14,7 @@ public class Billing implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return "To inquire about billing: " + "*\"" + TicketBot.getInstance().prefix + SupportType.BILLING + "\"*";
+        return "To inquire about billing: " + "*\"" + TicketBot.getInstance().prefix + SupportType.BILLING.getString() + "\"*";
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Billing implements ISupportType {
 
     @Override
     public String getTicketCreatedMessage() {
-        return Emoji.PageFacingUp.getValue() + " Ticket created! \n\nPlease explain how you can be helped.";
+        return "How can we help you?";
     }
     
 }
