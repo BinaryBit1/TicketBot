@@ -1,8 +1,6 @@
 package proj.bot.ticket.supports;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.List;
 import java.util.UUID;
 
 import api.proj.marble.lib.emoji.Emoji;
@@ -13,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Channel;
+import net.dv8tion.jda.core.entities.Category;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
@@ -32,18 +30,18 @@ public class Ticket {
 
     @Getter
     @Setter
-    private String id;
+    private UID id;
 
-    private User owner;
+    private String owner;
     
-    public Ticket(SupportType type, Guild guild, User owner, String id) {
+    public Ticket(SupportType type, Guild guild, String owner, UID id) {
         this.type = type;
         this.guild = guild;
         this.id = id;
         this.owner = owner;
     }
     
-    public Ticket(SupportType type, Guild guild, User owner) {
+    public Ticket(SupportType type, Guild guild, String owner) {
         this.type = type;
         this.guild = guild;
         generateId();
@@ -52,7 +50,7 @@ public class Ticket {
         this.owner = owner;
     }
     
-    public Ticket(SupportType type, Guild guild, String id) {
+    public Ticket(SupportType type, Guild guild, UID id) {
         this.type = type;
         this.guild = guild;
         this.id = id;
@@ -60,12 +58,14 @@ public class Ticket {
     
     public static Ticket from(TextChannel channel) {
         for(SupportType type : new ServerConfig(channel.getGuild().getId()).getEnabledSupports()) {
-            return new Ticket(type, channel.getGuild(), getOwner(channel), channel.getName());
+            Category cat = type.getCategory(channel.getGuild());
+            if(cat.getTextChannels().contains(channel))
+                return new Ticket(type, channel.getGuild(), getOwner(channel), UID.from(channel.getName()));
         }
         return null;
     }
     
-    public static Ticket from(Guild guild, String id) {
+    public static Ticket from(Guild guild, UID id) {
         for(SupportType type : new ServerConfig(guild.getId()).getEnabledSupports()) {
             TextChannel channel = new Ticket(type, guild, id).getChannel();
             if(channel != null) {
@@ -75,49 +75,42 @@ public class Ticket {
         return null;
     }
     
-    private static User getOwner(TextChannel channel) {
-        User owner = TicketBot.getInstance().getJda().getUserById(channel.getTopic());
-        if(owner == null)
-            owner = TicketBot.getInstance().getJda().getSelfUser();
+    private static String getOwner(TextChannel channel) {
+        String owner = channel.getTopic();
+        if(owner == null || owner == "")
+            owner = TicketBot.getInstance().getJda().getSelfUser().getId();
         return owner;
     }
     
-    public User getOwner() {
-        if(owner == null) {
-            owner = TicketBot.getInstance().getJda().getSelfUser();
-            getChannel().getManager().setTopic(owner.getId());
+    public String getOwner() {
+        if(owner == null || owner == "") {
+            owner = TicketBot.getInstance().getJda().getSelfUser().getId();
+            getChannel().getManager().setTopic(owner);
         }
         return owner;
     }
     
     public void create() {
         type.getCategory(guild)
-        .createTextChannel(id)
-        .setTopic(owner.getId())
+        .createTextChannel(id.toString())
+        .setTopic(owner)
         .addPermissionOverride(SupportType.getPublicRole(guild), SupportType.getPublicAllow(), SupportType.getPublicDeny())
         .addPermissionOverride(SupportType.getSupportRole(guild), SupportType.getSupportAllow(), SupportType.getSupportDeny())
         .queue(ch -> {
             EmbedBuilder embed = Messenger.getEmbedFrame(ch.getGuild());
             embed.setDescription(Emoji.PageFacingUp.getValue() + " **Ticket created!** \n\n" + type.getSupportType().getTicketCreatedMessage());
             Messenger.sendEmbed((TextChannel) ch, embed.build());
-            addUser(owner);
+            addUser(TicketBot.getInstance().getJda().getUserById(owner));
         });
     }
     
     public TextChannel getChannel() {
-        List<Channel> tickets = type.getCategory(guild).getChannels();
-        List<TextChannel> ticket = new ArrayList<>();  
-        tickets.stream().forEach(ch -> {
-            if(ch instanceof TextChannel) {
-                if(ch.getName().equals(id)) {
-                    ticket.add((TextChannel)ch);
-                }
+        for (TextChannel ch : type.getCategory(guild).getTextChannels()) {
+            if (UID.from(ch.getName()).equals(id)) {
+                return (TextChannel) ch;
             }
-        });
-        if (ticket.isEmpty())
-            return null;
-        else
-            return ticket.get(0);
+        }
+        return null;
     }
     
     public void addUser(User user) {
@@ -144,11 +137,12 @@ public class Ticket {
     
     public void close() {
         TextChannel ch = getChannel();
-        
-        ch.getMemberPermissionOverrides().forEach(po -> {
-            Member member = po.getMember();
-            ch.putPermissionOverride(member).setAllow(EnumSet.of(Permission.MESSAGE_READ)).setDeny(EnumSet.of(Permission.MESSAGE_WRITE)).queue();
-        });
+        try {
+            ch.getMemberPermissionOverrides().forEach(po -> {
+                Member member = po.getMember();
+                ch.putPermissionOverride(member).setAllow(EnumSet.of(Permission.MESSAGE_READ)).setDeny(EnumSet.of(Permission.MESSAGE_WRITE)).queue();
+            });
+        } catch(Exception e) {}
         
         EmbedBuilder embed = Messenger.getEmbedFrame(guild);
         embed.setDescription(Emoji.Lock.getValue() + " Ticket closing in `20` seconds.");
@@ -163,7 +157,7 @@ public class Ticket {
     }
     
     private void generateId() {
-        this.id = type.getAbr() + "-" + UID.randomUID().toString().toLowerCase();
+        this.id = UID.from(type.getAbr() + "-" + UID.randomUID().toString().toLowerCase());
     }
 
 }

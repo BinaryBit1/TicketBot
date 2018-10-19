@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.List;
 
 import api.proj.marble.lib.emoji.Emoji;
+import api.proj.marble.lib.uid.UID;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
@@ -49,7 +50,7 @@ public class Add implements Command {
             return;
         }
         
-        Ticket ticket = Ticket.from(guild, ch.getName());
+        Ticket ticket = Ticket.from(guild, UID.from(ch.getName()));
         if(ticket == null) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You must be in a ticket channel to use this command.**");
@@ -58,7 +59,7 @@ public class Add implements Command {
             return;
         }
         
-        if(!Authenticator.isSupport(guild, user) && !ticket.getOwner().getId().equals(user.getId())) {
+        if(!Authenticator.isSupport(guild, user) && !ticket.getOwner().equals(user.getId())) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You must be the ticket owner, or part of the support staff, to add members to this ticket.**");
             embed.setColor(Color.RED);

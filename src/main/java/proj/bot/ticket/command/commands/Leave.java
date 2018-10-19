@@ -3,6 +3,7 @@ package proj.bot.ticket.command.commands;
 import java.awt.Color;
 
 import api.proj.marble.lib.emoji.Emoji;
+import api.proj.marble.lib.uid.UID;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
@@ -39,7 +40,7 @@ public class Leave implements Command {
     @Override
     public void execute(Guild guild, User user, MessageChannel ch, Message msg, String command, String[] args) {
         
-        Ticket ticket = Ticket.from(guild, ch.getName());
+        Ticket ticket = Ticket.from(guild, UID.from(ch.getName()));
         if(ticket == null) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You must be in a ticket channel to use this command.**");
@@ -56,7 +57,7 @@ public class Leave implements Command {
             return;
         }
         
-        if(ticket.getOwner().getId().equals(user.getId())) {
+        if(ticket.getOwner().equals(user.getId())) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You cannot leave your own ticket without closing it.**");
             embed.setColor(Color.RED);

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
+import api.proj.marble.lib.uid.UID;
 import lombok.Getter;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Category;
@@ -11,7 +12,6 @@ import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.entities.User;
 import proj.bot.ticket.supports.types.Ban;
 import proj.bot.ticket.supports.types.Billing;
 import proj.bot.ticket.supports.types.Bug;
@@ -84,26 +84,25 @@ public enum SupportType {
             return cats.get(0);
     }
 
-    public List<Ticket> getTickets(Guild guild, User user) {
-        List<Channel> channels = getCategory(guild).getChannels();
-        List<Ticket> tickets = new ArrayList<>();  
+    public List<Ticket> getTickets(Guild guild, String user) {
+        List<TextChannel> channels = getCategory(guild).getTextChannels();
+        List<Ticket> tickets = new ArrayList<>();
         channels.stream().forEach(channel -> {
-            if(channel instanceof TextChannel) {
-                Ticket ticket = Ticket.from((TextChannel)channel);
-                if(ticket != null) {
+            Ticket ticket = Ticket.from(channel);
+            if (ticket != null) {
+                if (ticket.getOwner().equals(user))
                     tickets.add(ticket);
-                }
             }
         });
         return tickets;
     }
     
-    public boolean containsChannel(Guild guild, String channelName) {
+    public boolean containsChannel(Guild guild, UID uid) {
         Category cat = getCategory(guild);
-        List<Channel> channels = cat.getChannels();
+        List<TextChannel> channels = cat.getTextChannels();
         if(!channels.isEmpty()) {
             for(Channel ch : channels) {
-                if(ch.getName().equals(channelName))
+                if(UID.from(ch.getName()).equals(uid))
                     return true;
             }
         }

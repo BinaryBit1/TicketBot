@@ -61,7 +61,7 @@ public class TicketCreator implements Command {
             return;
         }
         
-        if(type.getTickets(guild, user).size() >= 5 && !Authenticator.isSupport(guild, user)) {
+        if(type.getTickets(guild, user.getId()).size() >= 5 && !Authenticator.isSupport(guild, user)) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You have too many tickets open under that type.**");
             embed.setColor(Color.RED);
@@ -69,7 +69,7 @@ public class TicketCreator implements Command {
             return;
         }
         
-        Ticket ticket = new Ticket(type, guild, user);
+        Ticket ticket = new Ticket(type, guild, user.getId());
         ticket.create();
     }
 

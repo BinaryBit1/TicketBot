@@ -37,8 +37,9 @@ public class TicketListener extends ListenerAdapter {
     
     @Override
     public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
+        String id = event.getUser().getId();
         new ServerConfig(event.getGuild().getId()).getEnabledSupports().stream().forEach(type -> {
-            type.getTickets(event.getGuild(), event.getUser()).stream().forEach(ticket -> {
+            type.getTickets(event.getGuild(), id).stream().forEach(ticket -> {
                 ticket.close();
             });
         });
