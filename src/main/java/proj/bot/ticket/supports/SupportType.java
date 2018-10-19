@@ -16,7 +16,7 @@ import proj.bot.ticket.supports.types.Ban;
 import proj.bot.ticket.supports.types.Billing;
 import proj.bot.ticket.supports.types.Bug;
 import proj.bot.ticket.supports.types.Question;
-import proj.bot.ticket.supports.types.Rank;
+import proj.bot.ticket.supports.types.Request;
 import proj.bot.ticket.supports.types.Suggest;
 import proj.bot.ticket.supports.types.Support;
 
@@ -26,8 +26,7 @@ public enum SupportType {
     BILLING("billing", "blg", new Billing()),
     BUG("bug", "bg", new Bug()),
     QUESTION("question", "qst", new Question()),
-    RANK("rank", "rnk", new Rank()),
-    ROLE("role", "rl", new proj.bot.ticket.supports.types.Role()),
+    REQUEST("request", "rqst", new Request()),
     SUGGEST("suggest", "sgt", new Suggest()),
     SUPPORT("support", "spt", new Support()),
     TICKET("ticket", "tkt", new proj.bot.ticket.supports.types.Ticket()),

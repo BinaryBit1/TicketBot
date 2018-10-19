@@ -5,26 +5,26 @@ import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.supports.ISupportType;
 import proj.bot.ticket.supports.SupportType;
 
-public class Role implements ISupportType {
+public class Request implements ISupportType {
 
     @Override
     public String getConfigPath() {
-        return "Enable Role Requests";
+        return "Enable Requests";
     }
 
     @Override
     public String getHelpMessage() {
-        return TicketBot.getInstance().prefix + SupportType.ROLE.getString();
+        return TicketBot.getInstance().prefix + SupportType.REQUEST.getString();
     }
 
     @Override
     public String getCategoryName() {
-        return Emoji.Scroll.getValue() + " Role Requests";
+        return Emoji.Exclamation.getValue() + " Requests";
     }
 
     @Override
     public String getTicketCreatedMessage() {
-        return "What role and you requesting?";
+        return "What are you requesting?";
     }
     
 }
