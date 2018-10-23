@@ -5,15 +5,14 @@ How To Download:
   - Clone the Marble API and add to your IDE from here: https://github.com/BinaryBit1/Marble
   - Clone the TicketBot and add to your IDE from here: https://github.com/BinaryBit1/TicketBot
   - For each project (Starting with Marble):
-    - Select Run>Run As>Maven Build...
-    - In the "Goals" section, type "clean install".
-    - Click "Apply" at the bottom.
-    - Click "Run".
-  - Navigate to your TicketBot project folder, then "target", and you will find a jar called "TicketBot-1.jar" NOT "original-TicketBot-1.jar"
+    - Run As Maven Build.
+    - GOALS: "clean install".
+    - Apply and Run.
+  - Navigate to your TicketBot project folder, then "target", and you will find a jar called "TicketBot-1.jar". NOT "original-TicketBot-1.jar".
   
 How To Set Up Jar:
  - Simply launch the jar by double clicking it.
- * To launch the jar with NO gui, please add the arguement "nogui" as a launch arguement.
+ * To launch the jar with NO gui, please add the arguement "nogui".
  * On initial launch, you will need to edit the TicketBot config file. Replace the bot token, then relaunch.
  - After the JDA has successfully logged into the bot account, you may minimize the log window.
  - Add your custom bot account to any server(s) you wish.
@@ -26,6 +25,7 @@ How To Use The Bot:
    - Can blacklist users from creating tickets.
    - Can enable/disable support types.
    - Will have the ability to access all tickets.
+   - Will have the ability to add and remove users to a ticket.
    - Will be able to close any tickets.
  - All Users:
    - Will receive a help message describing how to make new tickets.
