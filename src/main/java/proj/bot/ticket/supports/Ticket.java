@@ -121,7 +121,7 @@ public class Ticket {
         EmbedBuilder embed = Messenger.getEmbedFrame(guild);
         embed.setDescription(Emoji.GreenCheck.getValue() + " **" + user.getName() + "** added to ticket!");
         Messenger.sendEmbed(ch, embed.build());
-        ch.sendMessage(user.getAsMention()).queue(msg -> msg.delete().queue());
+        ch.sendMessage(user.getAsMention() + " Your ticket is ready.").queue(msg -> msg.delete().queue());
     }
     
     public void removeUser(User user) {
