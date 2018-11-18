@@ -2,8 +2,8 @@
 Support ticket system manager for Discord servers.
 
 How To Download:
-  - Clone the Marble API and add to your IDE from here: https://github.com/BinaryBit1/Marble
-  - Clone the TicketBot and add to your IDE from here: https://github.com/BinaryBit1/TicketBot
+  - Clone the Marble API and add to your IDE from here: https://github.com/K3ttle/Marble
+  - Clone the TicketBot and add to your IDE from here: https://github.com/K3ttle/TicketBot
   - For each project (Starting with Marble):
     - Run As Maven Build.
     - GOALS: "clean install".
@@ -36,8 +36,8 @@ How To Use The Bot:
 
 For any further support on this or any of my other projects, please visit the Discord below.
 
-Github: <https://github.com/BinaryBit1>
+Github: <https://github.com/K3ttle>
 
-Donation link: <https://paypal.me/BinaryBit>
+Donation link: <https://paypal.me/K3ttle>
 
 Discord Invite Link: <https://discord.gg/NWbjTEC>
