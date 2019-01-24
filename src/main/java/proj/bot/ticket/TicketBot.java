@@ -5,14 +5,14 @@ import java.io.File;
 
 import javax.security.auth.login.LoginException;
 
-import api.proj.marble.tasks.logwindow.LogListener;
-import api.proj.marble.tasks.logwindow.LogWindow;
 import lombok.Getter;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.Guild;
+import proj.api.marble.tasks.logwindow.LogListener;
+import proj.api.marble.tasks.logwindow.LogWindow;
 import proj.bot.ticket.config.ServerConfig;
 import proj.bot.ticket.config.TicketConfig;
 import proj.bot.ticket.events.TicketListener;

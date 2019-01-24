@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import api.proj.marble.lib.config.Config;
 import lombok.Getter;
+import proj.api.marble.lib.config.Config;
 import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.supports.SupportType;
 

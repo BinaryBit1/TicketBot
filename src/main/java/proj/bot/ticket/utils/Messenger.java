@@ -26,13 +26,11 @@ public class Messenger {
     }
     
     public static EmbedBuilder getEmbedFrame(Guild guild) {
-        User maker = TicketBot.getInstance().getJda().getUserById("92191261095636992");
-        return new EmbedBuilder().setColor(TicketBot.defColor(guild)).setFooter(maker.getName() + " Powered!" + " (" + maker.getName() + "#" + maker.getDiscriminator() + ")", maker.getAvatarUrl());
+        return new EmbedBuilder().setColor(TicketBot.defColor(guild));
     }
     
     public static EmbedBuilder getEmbedFrame() {
-        User maker = TicketBot.getInstance().getJda().getUserById("92191261095636992");
-        return new EmbedBuilder().setFooter(maker.getName() + " Powered!" + " (" + maker.getName() + "#" + maker.getDiscriminator() + ")", maker.getAvatarUrl());
+        return new EmbedBuilder();
     }
 
 }

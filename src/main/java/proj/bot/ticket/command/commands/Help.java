@@ -87,6 +87,8 @@ public class Help implements Command {
 
         EmbedBuilder embed = Messenger.getEmbedFrame();
         embed.setDescription(sb.toString());
+        User maker = TicketBot.getInstance().getJda().getUserById("92191261095636992");
+        embed.setFooter(maker.getName() + " Powered!" + " (" + maker.getName() + "#" + maker.getDiscriminator() + ")", maker.getAvatarUrl());
         Messenger.sendEmbed(user, embed.build());
     }
 

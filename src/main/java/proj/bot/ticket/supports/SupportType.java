@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
-import api.proj.marble.lib.uid.UID;
 import lombok.Getter;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Category;
@@ -12,6 +11,7 @@ import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
+import proj.api.marble.lib.uid.UID;
 import proj.bot.ticket.supports.types.Ban;
 import proj.bot.ticket.supports.types.Billing;
 import proj.bot.ticket.supports.types.Bug;

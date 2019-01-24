@@ -1,7 +1,7 @@
 package proj.bot.ticket.config;
 
-import api.proj.marble.lib.config.Config;
 import lombok.Getter;
+import proj.api.marble.lib.config.Config;
 
 public class TicketConfig {
     @Getter

@@ -2,14 +2,14 @@ package proj.bot.ticket.command.commands;
 
 import java.awt.Color;
 
-import api.proj.marble.lib.emoji.Emoji;
-import api.proj.marble.lib.uid.UID;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
+import proj.api.marble.lib.emoji.Emoji;
+import proj.api.marble.lib.uid.UID;
 import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
 import proj.bot.ticket.supports.Ticket;
