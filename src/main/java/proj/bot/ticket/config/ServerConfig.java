@@ -18,7 +18,7 @@ public class ServerConfig {
     
     public ServerConfig(String guildId) {
         this.guildId = guildId;
-        this.config = Config.builder().file(new File(TicketBot.filePath + File.separator + "Servers", guildId)).build();
+        this.config = Config.builder().file(new File(TicketBot.filePath + File.separator + "Servers", guildId + ".yml")).build();
         
         for(SupportType type : SupportType.values()) {
             getSupportType(type);
