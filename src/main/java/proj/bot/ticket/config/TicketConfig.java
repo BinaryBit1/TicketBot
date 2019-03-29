@@ -1,14 +1,16 @@
 package proj.bot.ticket.config;
 
+import java.io.File;
+
 import lombok.Getter;
-import proj.api.marble.lib.config.Config;
+import proj.api.marble.builders.config.Config;
 
 public class TicketConfig {
     @Getter
     public Config config;
     
     public TicketConfig(String configPath, String fileName) {
-        this.config = new Config(configPath, fileName);
+        this.config = Config.builder().file(new File(configPath, fileName)).build();
         
         this.getToken();
         this.getPrefixIdentifier();

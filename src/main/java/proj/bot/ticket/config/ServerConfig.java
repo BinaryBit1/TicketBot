@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
-import proj.api.marble.lib.config.Config;
+import proj.api.marble.builders.config.Config;
 import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.supports.SupportType;
 
@@ -18,7 +18,7 @@ public class ServerConfig {
     
     public ServerConfig(String guildId) {
         this.guildId = guildId;
-        this.config = new Config(TicketBot.filePath + File.separator + "Servers", guildId);
+        this.config = Config.builder().file(new File(TicketBot.filePath + File.separator + "Servers", guildId)).build();
         
         for(SupportType type : SupportType.values()) {
             getSupportType(type);
