@@ -1,15 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>proj.bot</groupId>
-  <artifactId>TicketBot</artifactId>
-  <version>1</version>
-  <name>TicketBot</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>proj.bot</groupId>
+	<artifactId>TicketBot</artifactId>
+	<version>2</version>
+	<name>TicketBot</name>
 
 	<repositories>
 		<repository>
 			<id>central</id>
 			<name>bintray</name>
 			<url>http://jcenter.bintray.com</url>
+		</repository>
+
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
 		</repository>
 	</repositories>
 
@@ -28,9 +35,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>proj.api</groupId>
+			<groupId>com.github.WesternPine</groupId>
 			<artifactId>Marble</artifactId>
-			<version>2</version>
+			<version>master-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
