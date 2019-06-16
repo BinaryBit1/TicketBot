@@ -45,9 +45,9 @@ public class Help implements Command {
         StringBuilder sb = new StringBuilder();
 
         sb.append("__**TicketBot Help Menu**__").append(System.getProperty("line.separator")).append(System.getProperty("line.separator"));
-
         if (Authenticator.isSupport(guild, user)) {
             sb.append("**Support Staff & Administrators**").append(System.getProperty("line.separator"));
+            sb.append("If I have trouble seeing ticket channels, please give me the role \"SupportSpecialist\".").append(System.getProperty("line.separator"));
             sb.append("Administrators and memebers with the \"Support Specialist\" role:").append(System.getProperty("line.separator"));
             sb.append(" - May modify the blacklisted users.").append(System.getProperty("line.separator"));
             sb.append(" - May create unlimited tickets.").append(System.getProperty("line.separator"));

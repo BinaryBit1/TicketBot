@@ -96,6 +96,7 @@ public class Ticket {
         .setTopic(owner)
         .addPermissionOverride(SupportType.getPublicRole(guild), SupportType.getPublicAllow(), SupportType.getPublicDeny())
         .addPermissionOverride(SupportType.getSupportRole(guild), SupportType.getSupportAllow(), SupportType.getSupportDeny())
+        .addPermissionOverride(SupportType.getSelfMember(guild), SupportType.getSelfAllow(), SupportType.getSelfDeny())
         .queue(ch -> {
             EmbedBuilder embed = Messenger.getEmbedFrame(ch.getGuild());
             embed.setDescription(Emoji.PageFacingUp.getValue() + " **Ticket created!** \n\n" + type.getSupportType().getTicketCreatedMessage());

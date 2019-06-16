@@ -24,7 +24,7 @@ public class ServerTable {
         try {
             if (!tableExists(guildId)) {
                 String statement = "CREATE TABLE IF NOT EXISTS `" + guildId
-                        + "` (`type` varchar(255) NOT NULL, `value` varchar(255) NOT NULL, PRIMARY KEY (type)) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+                        + "` (`type` varchar(255) NOT NULL, `value` varchar(255) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
                 PreparedStatement sql = connection.prepareStatement(statement);
                 sql.executeUpdate();
                 sql.close();
@@ -133,7 +133,7 @@ public class ServerTable {
         if (newCon.isPresent()) {
             boolean isNew = newCon.get();
             try {
-                PreparedStatement sql = connection.prepareStatement("DELETE FROM `" + guildId + "` WHERE type='support', value='" + type.toString() + "';");
+                PreparedStatement sql = connection.prepareStatement("DELETE FROM `" + guildId + "` WHERE type='support' AND value='" + type.toString() + "';");
                 sql.executeUpdate();
                 sql.close();
                 if(enabled) {
@@ -162,7 +162,6 @@ public class ServerTable {
                     list.add(SupportType.fromString(rs.getString("value")));
                 }
                 rs.close();
-                sql.executeUpdate();
                 sql.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -179,7 +178,7 @@ public class ServerTable {
         if (newCon.isPresent()) {
             boolean isNew = newCon.get();
             try {
-                PreparedStatement sql = connection.prepareStatement("DELETE FROM `" + guildId + "` WHERE type='blacklist', value='" + userid + "';");
+                PreparedStatement sql = connection.prepareStatement("DELETE FROM `" + guildId + "` WHERE type='blacklist' AND value='" + userid + "';");
                 sql.executeUpdate();
                 sql.close();
                 if(added) {
@@ -211,7 +210,6 @@ public class ServerTable {
                     }
                 }
                 rs.close();
-                sql.executeUpdate();
                 sql.close();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -235,7 +233,6 @@ public class ServerTable {
                     list.add(rs.getString("value"));
                 }
                 rs.close();
-                sql.executeUpdate();
                 sql.close();
             } catch (Exception e) {
                 e.printStackTrace();

@@ -18,7 +18,7 @@ How To Set Up Jar:
  - Add your custom bot account to any server(s) you wish.
  
 How To Use The Bot:
- - To add the hosted Bot to your server, this link: https://discordapp.com/api/oauth2/authorize?client_id=498422164077150218&permissions=268462096&scope=bot
+ - To add the hosted Bot to your server, this link: https://discordapp.com/api/oauth2/authorize?client_id=498422164077150218&permissions=268463120&scope=bot
  - Guild Administrators & Support Specialists:
    - Will receive an exclusive addition to their help message describing how to setup the bot.
    - Will receive access to exclusiuve commands to set up the bot.

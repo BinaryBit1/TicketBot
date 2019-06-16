@@ -9,9 +9,11 @@ import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.Category;
 import net.dv8tion.jda.core.entities.Channel;
 import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
 import proj.api.marble.lib.uid.UID;
+import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.supports.types.Ban;
 import proj.bot.ticket.supports.types.Billing;
 import proj.bot.ticket.supports.types.Bug;
@@ -73,6 +75,10 @@ public enum SupportType {
     public static EnumSet<Permission> getSupportAllow() { return EnumSet.of(Permission.MESSAGE_READ, Permission.MESSAGE_WRITE); }
     public static EnumSet<Permission> getSupportDeny() { return EnumSet.noneOf(Permission.class); }
     
+    public static Member getSelfMember(Guild guild) { return guild.getMember(TicketBot.getInstance().getJda().getSelfUser()); }
+    public static EnumSet<Permission> getSelfAllow() { return EnumSet.of(Permission.MESSAGE_READ, Permission.MESSAGE_WRITE, Permission.MESSAGE_EMBED_LINKS, Permission.MANAGE_CHANNEL, Permission.MANAGE_ROLES, Permission.MESSAGE_MANAGE); }
+    public static EnumSet<Permission> getSelfDeny() { return EnumSet.noneOf(Permission.class); }
+    
     public void enable(Guild guild) {
         getCategory(guild);
     }
@@ -83,7 +89,9 @@ public enum SupportType {
         if (cats.isEmpty())
             return (Category) guild.getController().createCategory(name)
                     .addPermissionOverride(getPublicRole(guild), getPublicAllow(), getPublicDeny())
-                    .addPermissionOverride(getSupportRole(guild), getSupportAllow(), getSupportDeny()).complete();
+                    .addPermissionOverride(getSupportRole(guild), getSupportAllow(), getSupportDeny())
+                    .addPermissionOverride(getSelfMember(guild), getSelfAllow(), getSelfDeny())
+                    .complete();
         else
             return cats.get(0);
     }

@@ -1,6 +1,7 @@
 # Eclipse #
 /.project
 /.settings
+run.bat
 
 # IntelliJ #
 *.iml
@@ -13,6 +14,7 @@
 # Maven #
 /build.xml
 /target
+run.bat
 
 # Mac #
 .DS_Store
