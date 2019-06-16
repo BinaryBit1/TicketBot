@@ -11,7 +11,7 @@ import net.dv8tion.jda.core.entities.User;
 import proj.api.marble.lib.emoji.Emoji;
 import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
-import proj.bot.ticket.config.ServerConfig;
+import proj.bot.ticket.sql.ServerTable;
 import proj.bot.ticket.supports.SupportType;
 import proj.bot.ticket.supports.Ticket;
 import proj.bot.ticket.utils.Messenger;
@@ -43,8 +43,8 @@ public class TicketCreator implements Command {
         
         try { msg.delete().queue(); } catch(Exception e) {}
         
-        ServerConfig config = new ServerConfig(guild.getId());
-        if(config.blacklistContains(user.getId())) {
+        ServerTable table = new ServerTable(guild.getId());
+        if(table.blacklistContains(user.getId())) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **You are currently blacklisted from creating tickets.**");
             embed.setColor(Color.RED);
@@ -53,7 +53,7 @@ public class TicketCreator implements Command {
         }
         
         SupportType type = SupportType.fromString(command);
-        if(!config.getSupportType(type)) {
+        if(!table.getSupportType(type)) {
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.CrossMark.getValue() + " **That support type is currently unavailable.**");
             embed.setColor(Color.RED);

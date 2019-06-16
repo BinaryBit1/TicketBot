@@ -11,7 +11,7 @@ import net.dv8tion.jda.core.entities.User;
 import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
-import proj.bot.ticket.config.ServerConfig;
+import proj.bot.ticket.sql.ServerTable;
 import proj.bot.ticket.supports.SupportType;
 import proj.bot.ticket.utils.Messenger;
 
@@ -45,9 +45,9 @@ public class Help implements Command {
         StringBuilder sb = new StringBuilder();
 
         sb.append("__**TicketBot Help Menu**__").append(System.getProperty("line.separator")).append(System.getProperty("line.separator"));
-
         if (Authenticator.isSupport(guild, user)) {
             sb.append("**Support Staff & Administrators**").append(System.getProperty("line.separator"));
+            sb.append("If I have trouble seeing ticket channels, please give me the role \"SupportSpecialist\".").append(System.getProperty("line.separator"));
             sb.append("Administrators and memebers with the \"Support Specialist\" role:").append(System.getProperty("line.separator"));
             sb.append(" - May modify the blacklisted users.").append(System.getProperty("line.separator"));
             sb.append(" - May create unlimited tickets.").append(System.getProperty("line.separator"));
@@ -55,12 +55,12 @@ public class Help implements Command {
             sb.append(" - May modify ticket members.").append(System.getProperty("line.separator"));
             sb.append(" - May close any tickets.").append(System.getProperty("line.separator"));
             sb.append("Blacklist Commands").append(System.getProperty("line.separator"));
-            sb.append(" - " + TicketBot.getInstance().prefix + "blacklist add ExampleUser#0000").append(System.getProperty("line.separator"));
-            sb.append(" - " + TicketBot.getInstance().prefix + "blacklist remove ExampleUser#0000").append(System.getProperty("line.separator"));
+            sb.append(" - " + TicketBot.getInstance().getPrefix() + "blacklist add ExampleUser#0000").append(System.getProperty("line.separator"));
+            sb.append(" - " + TicketBot.getInstance().getPrefix() + "blacklist remove ExampleUser#0000").append(System.getProperty("line.separator"));
             sb.append("By default, all support types are disabled for your server.").append(System.getProperty("line.separator"));
             sb.append("Support Type Commands").append(System.getProperty("line.separator"));
-            sb.append(" - " + TicketBot.getInstance().prefix + "enable (Support Type)").append(System.getProperty("line.separator"));
-            sb.append(" - " + TicketBot.getInstance().prefix + "disable (Support Type)").append(System.getProperty("line.separator"));
+            sb.append(" - " + TicketBot.getInstance().getPrefix() + "enable (Support Type)").append(System.getProperty("line.separator"));
+            sb.append(" - " + TicketBot.getInstance().getPrefix() + "disable (Support Type)").append(System.getProperty("line.separator"));
             sb.append("Support Types:").append(System.getProperty("line.separator"));
             for(SupportType type : SupportType.values()) {
                 sb.append(" - " + type.getString()).append(System.getProperty("line.separator"));
@@ -68,17 +68,17 @@ public class Help implements Command {
             sb.append(System.getProperty("line.separator"));
         }
         
-        ServerConfig config = new ServerConfig(guild.getId());
-        List<SupportType> enabledSupports = config.getEnabledSupports();
+        ServerTable table = new ServerTable(guild.getId());
+        List<SupportType> enabledSupports = table.getEnabledSupports();
         if(enabledSupports.isEmpty()) {
             sb.append("There are currently no Support Types enabled for this server.");
         } else {
             sb.append("**Ticket Commands**").append(System.getProperty("line.separator"));
             sb.append("You are allowed a maximum of 5 tickets per type.").append(System.getProperty("line.separator"));
-            sb.append("Close ticket: " + TicketBot.getInstance().prefix + "close").append(System.getProperty("line.separator"));
-            sb.append("Leave ticket: " + TicketBot.getInstance().prefix + "leave").append(System.getProperty("line.separator"));
-            sb.append("Add user: " + TicketBot.getInstance().prefix + "add ExampleUser#0000").append(System.getProperty("line.separator"));
-            sb.append("Remove user: " + TicketBot.getInstance().prefix + "remove ExampleUser#0000").append(System.getProperty("line.separator"));
+            sb.append("Close ticket: " + TicketBot.getInstance().getPrefix() + "close").append(System.getProperty("line.separator"));
+            sb.append("Leave ticket: " + TicketBot.getInstance().getPrefix() + "leave").append(System.getProperty("line.separator"));
+            sb.append("Add user: " + TicketBot.getInstance().getPrefix() + "add ExampleUser#0000").append(System.getProperty("line.separator"));
+            sb.append("Remove user: " + TicketBot.getInstance().getPrefix() + "remove ExampleUser#0000").append(System.getProperty("line.separator"));
             sb.append("Support commands:").append(System.getProperty("line.separator"));
             for(SupportType type : enabledSupports) {
                 sb.append(" - " + type.getSupportType().getHelpMessage()).append(System.getProperty("line.separator"));
