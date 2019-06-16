@@ -11,12 +11,12 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.command.CommandExecutor;
-import proj.bot.ticket.config.ServerConfig;
+import proj.bot.ticket.sql.ServerTable;
 import proj.bot.ticket.supports.SupportType;
 
 public class TicketListener extends ListenerAdapter {
 
-    public static final String prefix = TicketBot.getInstance().prefix;
+    public static final String prefix = TicketBot.getInstance().getPrefix();
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -38,7 +38,7 @@ public class TicketListener extends ListenerAdapter {
     @Override
     public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
         String id = event.getUser().getId();
-        new ServerConfig(event.getGuild().getId()).getEnabledSupports().stream().forEach(type -> {
+        new ServerTable(event.getGuild().getId()).getEnabledSupports().stream().forEach(type -> {
             type.getTickets(event.getGuild(), id).stream().forEach(ticket -> {
                 ticket.close();
             });

@@ -17,7 +17,7 @@ import proj.api.marble.lib.uid.UID;
 import proj.api.marble.tasks.threading.ThreadManager;
 import proj.api.marble.tasks.threading.Threadder;
 import proj.bot.ticket.TicketBot;
-import proj.bot.ticket.config.ServerConfig;
+import proj.bot.ticket.sql.ServerTable;
 import proj.bot.ticket.utils.Messenger;
 
 public class Ticket {
@@ -57,7 +57,7 @@ public class Ticket {
     }
     
     public static Ticket from(TextChannel channel) {
-        for(SupportType type : new ServerConfig(channel.getGuild().getId()).getEnabledSupports()) {
+        for(SupportType type : new ServerTable(channel.getGuild().getId()).getEnabledSupports()) {
             Category cat = type.getCategory(channel.getGuild());
             if(cat.getTextChannels().contains(channel))
                 return new Ticket(type, channel.getGuild(), getOwner(channel), UID.from(channel.getName()));
@@ -66,7 +66,7 @@ public class Ticket {
     }
     
     public static Ticket from(Guild guild, UID id) {
-        for(SupportType type : new ServerConfig(guild.getId()).getEnabledSupports()) {
+        for(SupportType type : new ServerTable(guild.getId()).getEnabledSupports()) {
             TextChannel channel = new Ticket(type, guild, id).getChannel();
             if(channel != null) {
                 return new Ticket(type, guild, getOwner(channel), id);

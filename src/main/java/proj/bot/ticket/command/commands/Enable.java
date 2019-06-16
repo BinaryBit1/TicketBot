@@ -12,7 +12,7 @@ import proj.api.marble.lib.emoji.Emoji;
 import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
 import proj.bot.ticket.command.CommandExecutor;
-import proj.bot.ticket.config.ServerConfig;
+import proj.bot.ticket.sql.ServerTable;
 import proj.bot.ticket.supports.SupportType;
 import proj.bot.ticket.utils.Messenger;
 
@@ -62,7 +62,7 @@ public class Enable implements Command {
             return;
         }
         
-        new ServerConfig(guild.getId()).setSupportType(type, true);
+        new ServerTable(guild.getId()).setSupportType(type, true);
         type.enable(guild);
         
         EmbedBuilder embed = Messenger.getEmbedFrame();

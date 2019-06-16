@@ -14,7 +14,7 @@ public class Bug implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return TicketBot.getInstance().prefix + SupportType.BUG.getString();
+        return TicketBot.getInstance().getPrefix() + SupportType.BUG.getString();
     }
 
     @Override

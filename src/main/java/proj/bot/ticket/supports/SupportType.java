@@ -47,6 +47,11 @@ public enum SupportType {
         this.supportType = supportType;
     }
     
+    @Override
+    public String toString() {
+        return this.string;
+    }
+    
     public static SupportType fromString(String string) {
         for(SupportType type : SupportType.values()) {
             if(type.getString().equalsIgnoreCase(string)) {
