@@ -14,7 +14,7 @@ public class Ticket implements ISupportType {
 
     @Override
     public String getHelpMessage() {
-        return TicketBot.getInstance().prefix + SupportType.TICKET.getString();
+        return TicketBot.getInstance().getPrefix() + SupportType.TICKET.getString();
     }
 
     @Override

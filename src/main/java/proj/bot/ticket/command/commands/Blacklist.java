@@ -14,7 +14,7 @@ import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.authenticator.Authenticator;
 import proj.bot.ticket.command.Command;
 import proj.bot.ticket.command.CommandExecutor;
-import proj.bot.ticket.config.ServerConfig;
+import proj.bot.ticket.sql.ServerTable;
 import proj.bot.ticket.utils.Messenger;
 
 public class Blacklist implements Command {
@@ -88,15 +88,15 @@ public class Blacklist implements Command {
             return;
         }
         
-        ServerConfig config = new ServerConfig(guild.getId());        
+        ServerTable table = new ServerTable(guild.getId());        
         if(add) {
-            config.addUserToBlacklist(taggedUser.getId());
+            table.updateBlacklist(taggedUser.getId(), true);
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.GreenCheck.getValue() + " **User added to blacklist.**");
             embed.setColor(Color.GREEN);
             Messenger.sendEmbed(ch, embed.build());
         } else {
-            config.removeUserFromBlacklist(taggedUser.getId());
+            table.updateBlacklist(taggedUser.getId(), false);
             EmbedBuilder embed = Messenger.getEmbedFrame();
             embed.setDescription(Emoji.GreenCheck.getValue() + " **User removed from blacklist.**");
             embed.setColor(Color.GREEN);
