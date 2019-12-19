@@ -33,7 +33,7 @@ public class TicketBot {
         new TicketBot().init(args);
     }
     
-    //test code
+    
     @SuppressWarnings("deprecation")
     public void init(String[] launchArgs) {
         instance = this;
