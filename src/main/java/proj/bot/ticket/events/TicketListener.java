@@ -25,16 +25,18 @@ public class TicketListener extends ListenerAdapter {
         if (msg.getContentRaw().startsWith(prefix)) {
             User user = event.getAuthor();
             String command = msg.getContentRaw().split(" ")[0].replaceAll(prefix, "");
-            String[] args = Arrays.copyOfRange(msg.getContentRaw().split(" "), 1, msg.getContentRaw().split(" ").length);
-            CommandExecutor.getCommand(command, msg.getGuild(), user).execute(msg.getGuild(), user, ch, msg, command, args);
+            String[] args = Arrays.copyOfRange(msg.getContentRaw().split(" "), 1,
+                    msg.getContentRaw().split(" ").length);
+            CommandExecutor.getCommand(command, msg.getGuild(), user).execute(msg.getGuild(), user, ch, msg, command,
+                    args);
         }
     }
-    
+
     @Override
     public void onGuildJoin(GuildJoinEvent event) {
         SupportType.getSupportRole(event.getGuild());
     }
-    
+
     @Override
     public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
         String id = event.getUser().getId();
