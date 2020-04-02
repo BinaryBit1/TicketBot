@@ -4,14 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>proj.bot</groupId>
 	<artifactId>TicketBot</artifactId>
-	<version>3</version>
+	<version>4</version>
 	<name>TicketBot</name>
 
 	<repositories>
 		<repository>
-			<id>central</id>
-			<name>bintray</name>
-			<url>http://jcenter.bintray.com</url>
+			<id>jcenter</id>
+			<name>jcenter-bintray</name>
+			<url>https://jcenter.bintray.com</url>
 		</repository>
 
 		<repository>
@@ -24,7 +24,7 @@
 		<dependency>
 			<groupId>net.dv8tion</groupId>
 			<artifactId>JDA</artifactId>
-			<version>3.7.1_388</version>
+			<version>4.1.1_126</version>
 			<exclusions>
 				<exclusion>
 					<groupId>club.minnced</groupId>

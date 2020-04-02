@@ -2,15 +2,18 @@ package proj.bot.ticket;
 
 import java.awt.Color;
 import java.io.File;
+import java.util.EnumSet;
 
 import javax.security.auth.login.LoginException;
 
 import lombok.Getter;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import proj.api.marble.tasks.logwindow.LogListener;
 import proj.api.marble.tasks.logwindow.LogWindow;
 import proj.bot.ticket.config.TicketConfig;
@@ -34,7 +37,6 @@ public class TicketBot {
     }
     
     
-    @SuppressWarnings("deprecation")
     public void init(String[] launchArgs) {
         instance = this;
         
@@ -56,16 +58,19 @@ public class TicketBot {
         }
         
         try {
-            getInstance().jda = new JDABuilder(AccountType.BOT).setToken(config.getVariables().get("BOT_TOKEN")).buildBlocking();
+        	EnumSet<GatewayIntent> intents = EnumSet.of(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES);
+        	EnumSet<CacheFlag> flags = EnumSet.of(CacheFlag.ACTIVITY, CacheFlag.MEMBER_OVERRIDES);
+        	JDABuilder builder = JDABuilder.create(config.getVariables().get("BOT_TOKEN"), intents);
+        	builder.enableCache(flags);
+        	jda = builder.build();
+        	jda.awaitReady();
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("There was a problem starting the bot. Please try again.");
-            return;
+        	e.printStackTrace();
+        	System.exit(0);
         }
-        System.out.println("Bot started!");
         
-        getInstance().jda.getPresence().setGame(Game.playing("Type: " + getPrefix() + "help"));
-        getInstance().jda.addEventListener(new TicketListener());
+        jda.getPresence().setPresence(OnlineStatus.ONLINE, Activity.listening("for \"" + getPrefix() + "help\""));
+        jda.addEventListener(new TicketListener());
     }
 
     public static Color defColor(Guild guild) {

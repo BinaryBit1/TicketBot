@@ -2,13 +2,13 @@ package proj.bot.ticket.events;
 
 import java.util.Arrays;
 
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.events.guild.GuildJoinEvent;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberLeaveEvent;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.guild.GuildJoinEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.command.CommandExecutor;
 import proj.bot.ticket.sql.ServerTable;
@@ -38,7 +38,7 @@ public class TicketListener extends ListenerAdapter {
     }
 
     @Override
-    public void onGuildMemberLeave(GuildMemberLeaveEvent event) {
+    public void onGuildMemberRemove(GuildMemberRemoveEvent event) {
         String id = event.getUser().getId();
         new ServerTable(event.getGuild().getId()).getEnabledSupports().stream().forEach(type -> {
             type.getTickets(event.getGuild(), id).stream().forEach(ticket -> {
