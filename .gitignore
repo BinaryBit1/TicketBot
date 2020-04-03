@@ -1,1 +1,33 @@
+<<<<<<< HEAD
 /bin/
+=======
+# Eclipse #
+/.project
+/.settings
+run.bat
+
+# IntelliJ #
+*.iml
+*.ipr
+*.iws
+
+# NetBeans #
+/nbproject
+
+# Maven #
+/build.xml
+/target
+run.bat
+
+# Mac #
+.DS_Store
+
+# Vim #
+.*.sw[a-p]
+
+# Misc #
+/build
+/bin
+/dist
+/manifest.mf
+>>>>>>> refs/remotes/origin/master
