@@ -22,13 +22,11 @@ public class ServerTable {
         this.guildId = guildId;
         open();
         try {
-            if (!tableExists(guildId)) {
                 String statement = "CREATE TABLE IF NOT EXISTS `" + guildId
                         + "` (`type` varchar(255) NOT NULL, `value` varchar(255) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
                 PreparedStatement sql = connection.prepareStatement(statement);
                 sql.executeUpdate();
                 sql.close();
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }

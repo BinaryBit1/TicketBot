@@ -5,13 +5,13 @@ import java.util.EnumSet;
 import java.util.List;
 
 import lombok.Getter;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Category;
-import net.dv8tion.jda.core.entities.Channel;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Category;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.GuildChannel;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import proj.api.marble.lib.uid.UID;
 import proj.bot.ticket.TicketBot;
 import proj.bot.ticket.supports.types.Ban;
@@ -69,7 +69,7 @@ public enum SupportType {
 
     public static Role getSupportRole(Guild guild) {
         return (guild.getRolesByName("Support Specialist", false).isEmpty()
-                ? guild.getController().createRole().setName("Support Specialist").complete()
+                ? guild.createRole().setName("Support Specialist").complete()
                 : guild.getRolesByName("Support Specialist", false).get(0));
     }
     public static EnumSet<Permission> getSupportAllow() { return EnumSet.of(Permission.MESSAGE_READ, Permission.MESSAGE_WRITE); }
@@ -87,7 +87,7 @@ public enum SupportType {
         List<Category> cats = guild.getCategoriesByName(supportType.getCategoryName(), true);
         String name = supportType.getCategoryName();
         if (cats.isEmpty())
-            return (Category) guild.getController().createCategory(name)
+            return (Category) guild.createCategory(name)
                     .addPermissionOverride(getPublicRole(guild), getPublicAllow(), getPublicDeny())
                     .addPermissionOverride(getSupportRole(guild), getSupportAllow(), getSupportDeny())
                     .addPermissionOverride(getSelfMember(guild), getSelfAllow(), getSelfDeny())
@@ -113,7 +113,7 @@ public enum SupportType {
         Category cat = getCategory(guild);
         List<TextChannel> channels = cat.getTextChannels();
         if(!channels.isEmpty()) {
-            for(Channel ch : channels) {
+            for(TextChannel ch : channels) {
                 if(UID.from(ch.getName()).equals(uid))
                     return true;
             }
@@ -123,7 +123,7 @@ public enum SupportType {
 
     public void disable(Guild guild) {
         Category cat = getCategory(guild);
-        for(Channel ch : cat.getChannels())
+        for(GuildChannel ch : cat.getChannels())
             ch.delete().queue();
         cat.delete().queue();
     }
