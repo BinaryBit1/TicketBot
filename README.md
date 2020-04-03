@@ -102,6 +102,7 @@ ___Support Types___
   - support
   - ticket
 
+
 Please note that by default, all support types are disabled for your server. To enable them, use the enable command followed by any of the listed support types. The response by the bot when using the help command is also automatically changed, this way when a user uses the help command, it shows which support type commands they may use. Ticket owners also have exclusive permission to add and remove users, and close tickets. Only those that are added to the tickets have the ability to leave tickets without closing them. And that's everything to know about TicketBot! If you have any other questions, comments, or concerns, feel free to contact me here on github or use my website in my profile. Thank you!
 
 License
