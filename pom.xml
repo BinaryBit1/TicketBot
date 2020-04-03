@@ -69,7 +69,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>proj.bot.ticket.TicketBot</mainClass>
+							<mainClass>dev.westernpine.TicketBot</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -81,7 +81,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>proj.bot.ticket.TicketBot</mainClass>
+							<mainClass>dev.westernpine.TicketBot</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
