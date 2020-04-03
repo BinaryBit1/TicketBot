@@ -18,11 +18,11 @@ public class Messenger {
     }
     
     public static void sendMessage(User user, String message) {
-        user.openPrivateChannel().queue(ch -> ch.sendMessage(message).complete());
+        user.openPrivateChannel().queue(ch -> ch.sendMessage(message).queue());
     }
     
     public static void sendEmbed(User user, MessageEmbed embed) {
-        user.openPrivateChannel().queue(ch -> ch.sendMessage(embed).complete());
+        user.openPrivateChannel().queue(ch -> ch.sendMessage(embed).queue());
     }
     
     public static EmbedBuilder getEmbedFrame(Guild guild) {
