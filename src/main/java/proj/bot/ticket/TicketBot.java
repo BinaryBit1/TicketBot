@@ -13,6 +13,7 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import proj.api.marble.tasks.logwindow.LogListener;
 import proj.api.marble.tasks.logwindow.LogWindow;
@@ -58,10 +59,11 @@ public class TicketBot {
         }
         
         try {
-        	EnumSet<GatewayIntent> intents = EnumSet.of(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGE_REACTIONS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.GUILD_PRESENCES);
-        	EnumSet<CacheFlag> flags = EnumSet.of(CacheFlag.ACTIVITY, CacheFlag.MEMBER_OVERRIDES);
+        	EnumSet<GatewayIntent> intents = EnumSet.of(GatewayIntent.GUILD_MEMBERS, GatewayIntent.values());
+        	EnumSet<CacheFlag> flags = EnumSet.of(CacheFlag.ACTIVITY, CacheFlag.values());
         	JDABuilder builder = JDABuilder.create(config.getVariables().get("BOT_TOKEN"), intents);
         	builder.enableCache(flags);
+        	builder.setChunkingFilter(ChunkingFilter.ALL);
         	jda = builder.build();
         	jda.awaitReady();
         } catch (Exception e) {
