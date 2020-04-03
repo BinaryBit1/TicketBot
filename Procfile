@@ -1,0 +1,1 @@
+worker: java -jar target/TicketBot-3.jar
