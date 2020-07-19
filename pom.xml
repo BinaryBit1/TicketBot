@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>dev.westernpine</groupId>
 	<artifactId>TicketBot</artifactId>
-	<version>8</version>
+	<version>9</version>
 	<name>TicketBot</name>
 
 	<repositories>
@@ -12,11 +12,6 @@
 			<id>jcenter</id>
 			<name>jcenter-bintray</name>
 			<url>https://jcenter.bintray.com</url>
-		</repository>
-
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
 		</repository>
 	</repositories>
 
@@ -34,9 +29,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.github.WesternPine</groupId>
-			<artifactId>Marble</artifactId>
-			<version>master-SNAPSHOT</version>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.14</version>
 		</dependency>
 
 		<dependency>
@@ -45,6 +40,42 @@
 			<version>8.0.16</version>
 		</dependency>
 
+		<dependency>
+			<groupId>ninja.leaping.configurate</groupId>
+			<artifactId>configurate-core</artifactId>
+			<version>3.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ninja.leaping.configurate</groupId>
+			<artifactId>configurate-json</artifactId>
+			<version>3.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ninja.leaping.configurate</groupId>
+			<artifactId>configurate-yaml</artifactId>
+			<version>3.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ninja.leaping.configurate</groupId>
+			<artifactId>configurate-hocon</artifactId>
+			<version>3.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ninja.leaping.configurate</groupId>
+			<artifactId>configurate-gson</artifactId>
+			<version>3.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>ninja.leaping.configurate</groupId>
+			<artifactId>configurate-parent</artifactId>
+			<version>3.3</version>
+			<type>pom</type>
+		</dependency>
 
 	</dependencies>
 

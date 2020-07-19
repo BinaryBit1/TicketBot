@@ -2,6 +2,7 @@ package dev.westernpine.ticketbot.command.commands;
 
 import java.awt.Color;
 
+import dev.westernpine.common.emoji.Emoji;
 import dev.westernpine.ticketbot.authenticator.Authenticator;
 import dev.westernpine.ticketbot.command.Command;
 import dev.westernpine.ticketbot.sql.ServerTable;
@@ -14,7 +15,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
-import proj.api.marble.lib.emoji.Emoji;
 
 public class TicketCreator implements Command {
     

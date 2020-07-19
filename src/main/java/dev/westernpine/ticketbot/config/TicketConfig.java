@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import dev.westernpine.common.config.Config;
 import lombok.Getter;
-import proj.api.marble.builders.config.Config;
 
 public class TicketConfig {
     @Getter

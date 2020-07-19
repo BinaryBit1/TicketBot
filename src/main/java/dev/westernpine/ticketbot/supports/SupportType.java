@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
+import dev.westernpine.common.uid.UID;
 import dev.westernpine.ticketbot.TicketBot;
 import dev.westernpine.ticketbot.supports.types.Ban;
 import dev.westernpine.ticketbot.supports.types.Billing;
@@ -20,7 +21,6 @@ import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
-import proj.api.marble.lib.uid.UID;
 
 public enum SupportType {
 

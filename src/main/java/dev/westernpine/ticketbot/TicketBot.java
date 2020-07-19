@@ -17,8 +17,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import proj.api.marble.tasks.logwindow.LogListener;
-import proj.api.marble.tasks.logwindow.LogWindow;
 
 public class TicketBot {
     @Getter
@@ -26,9 +24,6 @@ public class TicketBot {
     
     @Getter
     private JDA jda;
-    
-    @Getter
-    private LogWindow logger;
     
     @Getter
     private TicketConfig config;
@@ -40,13 +35,6 @@ public class TicketBot {
     
     public void init(String[] launchArgs) {
         instance = this;
-        
-        try {
-            logger = new LogWindow("TicketBot", 800, 400);
-            logger.addLogListener(new ListenerClass());
-        } catch(Exception e) {
-            System.out.println("Ignoring GUI implementation...");
-        }
         
         System.out.println("Starting Bot, please wait...");
         String filePath;
@@ -82,18 +70,4 @@ public class TicketBot {
     public String getPrefix() {
         return config.getVariables().get("COMMAND_PREFIX");
     }
-}
-
-class ListenerClass implements LogListener {
-
-    JDA jda(){return TicketBot.getInstance().getJda();}
-    LogWindow logger = TicketBot.getInstance().getLogger();
-
-    @Override
-    public void onLogInput(String input) {
-            logger.log("All bot interactions will now be in Discord. Nothing further to do here...");
-            logger.log("If you wish to get help using the bot, type \"" + TicketBot.getInstance().getPrefix() + "help\" in the discord chat.");
-            logger.log("If you wish to stop the bot, simply close the window.");
-    }
-
 }

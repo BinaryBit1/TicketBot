@@ -1,9 +1,9 @@
 package dev.westernpine.ticketbot.supports.types;
 
+import dev.westernpine.common.emoji.Emoji;
 import dev.westernpine.ticketbot.TicketBot;
 import dev.westernpine.ticketbot.supports.ISupportType;
 import dev.westernpine.ticketbot.supports.SupportType;
-import proj.api.marble.lib.emoji.Emoji;
 
 public class Ticket implements ISupportType {
 

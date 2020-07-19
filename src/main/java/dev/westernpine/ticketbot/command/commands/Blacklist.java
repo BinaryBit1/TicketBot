@@ -3,6 +3,7 @@ package dev.westernpine.ticketbot.command.commands;
 import java.awt.Color;
 import java.util.List;
 
+import dev.westernpine.common.emoji.Emoji;
 import dev.westernpine.ticketbot.TicketBot;
 import dev.westernpine.ticketbot.authenticator.Authenticator;
 import dev.westernpine.ticketbot.command.Command;
@@ -15,7 +16,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
-import proj.api.marble.lib.emoji.Emoji;
 
 public class Blacklist implements Command {
     

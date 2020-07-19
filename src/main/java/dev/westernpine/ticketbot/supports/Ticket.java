@@ -1,8 +1,9 @@
 package dev.westernpine.ticketbot.supports;
 
 import java.util.EnumSet;
-import java.util.UUID;
 
+import dev.westernpine.common.emoji.Emoji;
+import dev.westernpine.common.uid.UID;
 import dev.westernpine.ticketbot.TicketBot;
 import dev.westernpine.ticketbot.sql.ServerTable;
 import dev.westernpine.ticketbot.util.Messenger;
@@ -15,10 +16,6 @@ import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
-import proj.api.marble.lib.emoji.Emoji;
-import proj.api.marble.lib.uid.UID;
-import proj.api.marble.tasks.threading.ThreadManager;
-import proj.api.marble.tasks.threading.Threadder;
 
 public class Ticket {
     
@@ -148,13 +145,18 @@ public class Ticket {
         EmbedBuilder embed = Messenger.getEmbedFrame(guild);
         embed.setDescription(Emoji.Lock.getValue() + " Ticket closing in `20` seconds.");
         Messenger.sendEmbed(ch, embed.build());
-        UUID thread = ThreadManager.callNewThread(new Threadder() {
-            @Override
-            public void run() {
-                ch.delete().queue();
-            }
-        }, 20000L);
-        ThreadManager.get(thread).start();
+        new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(20000L);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				ch.delete().queue();
+			}
+        }).start();
     }
     
     private void generateId() {
