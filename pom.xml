@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>dev.westernpine</groupId>
 	<artifactId>TicketBot</artifactId>
-	<version>9</version>
+	<version>10</version>
 	<name>TicketBot</name>
 
 	<repositories>
@@ -77,6 +77,11 @@
 			<type>pom</type>
 		</dependency>
 
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.11.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
